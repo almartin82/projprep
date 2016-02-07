@@ -22,5 +22,4 @@ test_that('steamer reads and cleans raw data', {
   expect_true('FirstName' %in% names(s$h))
   expect_true('Mike Trout' %in% s$h$FullName)
   expect_true('Clayton Kershaw' %in% s$p$FullName)
-
 })

@@ -26,7 +26,7 @@ scrape_steamer <- function(url) {
 #'
 #' @param year desired year.  valid values: 2016
 #'
-#' @return
+#' @return list of data frames
 #' @export
 
 read_raw_steamer <- function(year) {
