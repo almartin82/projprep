@@ -61,15 +61,15 @@ clean_raw_steamer <- function(df) {
 }
 
 
-#' Reads and cleans steamer projection
+#' Get steamer projections
 #'
 #' @description workhorse function.  reads the raw steamer data file,
 #' cleans up headers, returns consistent df
 #' @inheritParams read_raw_steamer
-#' @return data frame
+#' @return a projection prep object.
 #' @export
 
-read_and_clean_steamer <- function(year) {
+get_steamer <- function(year) {
 
   raw <- read_raw_steamer(year)
   clean_h <- clean_raw_steamer(raw$h)

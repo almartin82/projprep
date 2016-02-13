@@ -12,8 +12,8 @@ test_that('steamer reads raw data', {
 })
 
 
-test_that('steamer reads and cleans raw data', {
-  s <- read_and_clean_steamer(2016)
+test_that('get_steamer reads and cleans raw data', {
+  s <- get_steamer(2016)
 
   expect_is(s, 'list')
   expect_is(s$h, 'data.frame')
@@ -22,4 +22,6 @@ test_that('steamer reads and cleans raw data', {
   expect_true('FirstName' %in% names(s$h))
   expect_true('Mike Trout' %in% s$h$FullName)
   expect_true('Clayton Kershaw' %in% s$p$FullName)
+
+  expect_true(all(c('IP', 'W', 'K', 'ERA', 'WHIP', 'SV') %in% names(s$p)))
 })
