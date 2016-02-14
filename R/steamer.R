@@ -57,6 +57,8 @@ clean_raw_steamer <- function(df) {
   df$FirstName <- split_name(df$FullName)$first
   df$LastName <- split_name(df$FullName)$last
 
+  names(df) <- tolower(names(df))
+
   df
 }
 
