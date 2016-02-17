@@ -20,8 +20,26 @@ proj_prep.default <- function(
   league_settings = league_defaults(),
   verbose = TRUE,
   ...) {
-  #limit to target stats
 
+  initial_message <- paste0(
+    'building a projection_prep object.\n',
+    sprintf('using the following hitting categories: %s',
+      paste(user_settings$h, collapse = ', ')
+    ),
+    '\n',
+    sprintf('using the following pitching categories: %s',
+            paste(user_settings$p, collapse = ', ')
+    ),
+    '\n',
+    'to change any of these settings, run `set_defaults()`.'
+  )
+  message(initial_message)
+
+  h_stats <- c(common_proj_prep_vars(), user_settings$h)
+  h_filtered <- raw_proj$h %>%
+    dplyr::select(one_of(h_stats))
+
+  h_filtered
   #zscore
 
   #find replacement by position
@@ -29,4 +47,15 @@ proj_prep.default <- function(
   #zscore again
 
   #express as to prices
+}
+
+
+#' What common variables do all projection prep data frames need to have?
+#'
+#' @return vector with names of common variables
+#' @export
+
+common_proj_prep_vars <- function() {
+
+  c('mlbid', 'fullname', 'firstname', 'lastname', 'position')
 }

@@ -53,13 +53,35 @@ read_raw_steamer <- function(year) {
 
 clean_raw_steamer <- function(df) {
 
+  #clean up player names
   names(df)[names(df) == 'Name'] <- 'FullName'
   df$FirstName <- split_name(df$FullName)$first
   df$LastName <- split_name(df$FullName)$last
 
+  #clean up df names
   names(df) <- tolower(names(df))
 
-  df
+  #clean up positions
+  if (user_settings$site == 'yahoo') {
+    df$position <- df$yahoo
+  } else if (user_settings$site == 'espn') {
+    df$position <- df$espn
+  }
+
+  #drop unwanted
+  mask <- names(df) %in% c('#', 'espn', 'yahoo')
+
+  #return
+  df[, !mask]
+}
+
+
+
+steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
+  #just a stub for now
+  steamer_df$mlbid <- NA
+
+  steamer_df
 }
 
 
@@ -76,6 +98,9 @@ get_steamer <- function(year) {
   raw <- read_raw_steamer(year)
   clean_h <- clean_raw_steamer(raw$h)
   clean_p <- clean_raw_steamer(raw$p)
+
+  clean_h <- steamer_mlbid_match(clean_h)
+  clean_p <- steamer_mlbid_match(clean_p)
 
   list('h' = clean_h, 'p' = clean_p)
 }
