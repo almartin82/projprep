@@ -35,6 +35,7 @@ proj_prep.default <- function(
   )
   message(initial_message)
 
+  #prep and limit to target stats
   h_stats <- c(common_proj_prep_vars(), user_settings$h)
   h_filtered <- raw_proj$h %>%
     dplyr::select(one_of(h_stats))
@@ -46,7 +47,9 @@ proj_prep.default <- function(
 
   #zscore again
 
-  #express as to prices
+  #express as prices
+
+  #return
 }
 
 
