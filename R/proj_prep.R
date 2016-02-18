@@ -36,7 +36,7 @@ proj_prep.default <- function(
   message(initial_message)
 
   #prep and limit to target stats
-  h_stats <- c(common_proj_prep_vars(), user_settings$h)
+  h_stats <- c(common_proj_prep_h_vars(), user_settings$h)
   h_filtered <- raw_proj$h %>%
     dplyr::select(one_of(h_stats))
 
@@ -59,6 +59,20 @@ proj_prep.default <- function(
 #' @export
 
 common_proj_prep_vars <- function() {
-
   c('mlbid', 'fullname', 'firstname', 'lastname', 'position')
 }
+
+#' @export
+#' @rdname common_proj_prep_vars
+
+common_proj_prep_h_vars <- function() {
+  c(common_proj_prep_vars(), 'ab', 'pa')
+}
+
+#' @export
+#' @rdname common_proj_prep_vars
+
+common_proj_prep_p_vars <- function() {
+  c(common_proj_prep_vars(), 'ip')
+}
+
