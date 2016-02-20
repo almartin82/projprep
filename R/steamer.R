@@ -60,13 +60,16 @@ clean_raw_steamer <- function(df) {
 
   #clean up df names
   names(df) <- tolower(names(df))
+  names(df)[names(df) == 'pos'] <- 'position'
 
   #clean up positions
-  if (user_settings$site == 'yahoo') {
+  if (user_settings$site == 'yahoo' & 'yahoo' %in% names(df)) {
     df$position <- df$yahoo
-  } else if (user_settings$site == 'espn') {
+  } else if (user_settings$site == 'espn' & 'espn' %in% names(df)) {
     df$position <- df$espn
   }
+
+  #priority_position
 
   #drop unwanted
   mask <- names(df) %in% c('#', 'espn', 'yahoo')
@@ -79,7 +82,7 @@ clean_raw_steamer <- function(df) {
 
 steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
   #just a stub for now
-  steamer_df$mlbid <- NA
+  steamer_df$mlbid <- c(1:nrow(steamer_df))
 
   steamer_df
 }

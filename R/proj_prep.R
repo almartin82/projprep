@@ -15,9 +15,9 @@
 proj_prep <- function(raw_proj, ...) UseMethod("proj_prep")
 
 #' @export
+
 proj_prep.default <- function(
   raw_proj,
-  league_settings = league_defaults(),
   verbose = TRUE,
   ...) {
 
@@ -40,8 +40,12 @@ proj_prep.default <- function(
   h_filtered <- raw_proj$h %>%
     dplyr::select(one_of(h_stats))
 
-  h_filtered
+  p_stats <- c(common_proj_prep_p_vars(), user_settings$p)
+  p_filtered <- raw_proj$p %>%
+    dplyr::select(one_of(p_stats))
+
   #zscore
+  list('h' = h_filtered, 'p' = p_filtered)
 
   #find replacement by position
 
