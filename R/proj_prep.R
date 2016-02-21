@@ -2,7 +2,7 @@
 #'
 #' @description given raw projection data, creates a proj_prep object
 #'
-#' @param raw_proj raw projection data.
+#' @param proj_list named ('h', 'p') list of data frames, ie output of get_steamer
 #' @examples
 #'\dontrun{
 #' cdf_mv <- mapvizieR(ex_CombinedAssessmentResults,
@@ -12,12 +12,12 @@
 #' }
 #' @export
 
-proj_prep <- function(raw_proj, ...) UseMethod("proj_prep")
+proj_prep <- function(proj_list, ...) UseMethod("proj_prep")
 
 #' @export
 
 proj_prep.default <- function(
-  raw_proj,
+  proj_list,
   verbose = TRUE,
   ...) {
 
@@ -36,36 +36,26 @@ proj_prep.default <- function(
   message(initial_message)
 
   #prep and limit to target stats
-  h_stats <- c(common_proj_prep_h_vars(), user_settings$h)
-  h_filtered <- raw_proj$h %>%
-    dplyr::select(one_of(h_stats))
+  pp_filtered <- limit_proj_vars(proj_list)
 
-  p_stats <- c(common_proj_prep_p_vars(), user_settings$p)
-  p_filtered <- raw_proj$p %>%
-    dplyr::select(one_of(p_stats))
-
-  list('h' = h_filtered, 'p' = p_filtered)
   #zscore
   h_zscore <- zscore(
-    df = h_filtered,
+    proj_list = pp_filtered,
     hit_pitch = 'h',
     positional = TRUE
   )
+  h_with_zscore <- pp_filtered$h %>%
+    dplyr::left_join(h_zscore, by = 'mlbid')
 
-  h_zscore
-#   h_with_zscore <- h_filtered %>%
-#     dplyr::left_join(h_zscore, by = 'mlbid')
+  p_zscore <- zscore(
+    proj_list = pp_filtered,
+    hit_pitch = 'p',
+    positional = TRUE
+  )
+  p_with_zscore <- pp_filtered$p %>%
+    dplyr::left_join(p_zscore, by = 'mlbid')
 
-#   p_zscore <- zscore(
-#     df = p_filtered,
-#     hit_pitch = 'p',
-#     positional = TRUE
-#   )
-#   p_with_zscore <- p_filtered %>%
-#     dplyr::left_join(p_zscore, by = 'mlbid')
-
-
-#   list('h' = h_with_zscore)
+  list('h' = h_with_zscore, 'p' = p_with_zscore)
 
   #find replacement by position
 
@@ -100,3 +90,24 @@ common_proj_prep_p_vars <- function() {
   c(common_proj_prep_vars(), 'ip')
 }
 
+
+#' select relevant raw projection stats
+#'
+#' @inheritParams proj_prep
+#'
+#' @return list of data frames with relevant variables selected
+#' @export
+
+limit_proj_vars <- function(proj_list) {
+
+  h_stats <- c(common_proj_prep_h_vars(), user_settings$h)
+  h_filtered <- proj_list$h %>%
+    dplyr::select(one_of(h_stats))
+
+  p_stats <- c(common_proj_prep_p_vars(), user_settings$p)
+  p_filtered <- proj_list$p %>%
+    dplyr::select(one_of(p_stats))
+
+  list('h' = h_filtered, 'p' = p_filtered)
+
+}

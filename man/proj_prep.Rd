@@ -4,10 +4,10 @@
 \alias{proj_prep}
 \title{Create a proj_prep object}
 \usage{
-proj_prep(raw_proj, ...)
+proj_prep(proj_list, ...)
 }
 \arguments{
-\item{raw_proj}{raw projection data.}
+\item{proj_list}{named ('h', 'p') list of data frames, ie output of get_steamer}
 }
 \description{
 given raw projection data, creates a proj_prep object

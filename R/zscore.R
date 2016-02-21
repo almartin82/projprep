@@ -1,11 +1,19 @@
+#' zscore
+#'
+#' @param proj_list named ('h', 'p') list of data frames, ie output of get_steamer
+#' @param hit_pitch 'h' or 'p'
+#' @param positional if TRUE, calculates zscore relative to position
+#'
+#' @return list of data frames with stat zscores
+#' @export
 
 zscore <- function(
-  df,
+  proj_list,
   hit_pitch,
   positional = FALSE
   ) {
 
-  this_df <- df %>% magrittr::extract2(hit_pitch)
+  this_df <- proj_list %>% magrittr::extract2(hit_pitch)
   this_stats <- user_settings %>% magrittr::extract2(hit_pitch)
 
   if (positional) {
@@ -39,5 +47,3 @@ zscore <- function(
 
   dplyr::bind_rows(zscored)
 }
-
-
