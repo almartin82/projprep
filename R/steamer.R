@@ -55,8 +55,8 @@ clean_raw_steamer <- function(df) {
 
   #clean up player names
   names(df)[names(df) == 'Name'] <- 'FullName'
-  df$FirstName <- split_name(df$FullName)$first
-  df$LastName <- split_name(df$FullName)$last
+  df$FirstName <- split_firstlast(df$FullName)$first
+  df$LastName <- split_firstlast(df$FullName)$last
 
   #clean up df names
   names(df) <- tolower(names(df))
@@ -70,6 +70,11 @@ clean_raw_steamer <- function(df) {
   }
 
   #priority_position
+  df <- df %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, user_settings$position_hierarchy)
+    )
 
   #drop unwanted
   mask <- names(df) %in% c('#', 'espn', 'yahoo')

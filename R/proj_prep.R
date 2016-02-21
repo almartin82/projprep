@@ -44,8 +44,28 @@ proj_prep.default <- function(
   p_filtered <- raw_proj$p %>%
     dplyr::select(one_of(p_stats))
 
-  #zscore
   list('h' = h_filtered, 'p' = p_filtered)
+  #zscore
+  h_zscore <- zscore(
+    df = h_filtered,
+    hit_pitch = 'h',
+    positional = TRUE
+  )
+
+  h_zscore
+#   h_with_zscore <- h_filtered %>%
+#     dplyr::left_join(h_zscore, by = 'mlbid')
+
+#   p_zscore <- zscore(
+#     df = p_filtered,
+#     hit_pitch = 'p',
+#     positional = TRUE
+#   )
+#   p_with_zscore <- p_filtered %>%
+#     dplyr::left_join(p_zscore, by = 'mlbid')
+
+
+#   list('h' = h_with_zscore)
 
   #find replacement by position
 
@@ -63,7 +83,7 @@ proj_prep.default <- function(
 #' @export
 
 common_proj_prep_vars <- function() {
-  c('mlbid', 'fullname', 'firstname', 'lastname', 'position')
+  c('mlbid', 'fullname', 'firstname', 'lastname', 'position', 'priority_pos')
 }
 
 #' @export
