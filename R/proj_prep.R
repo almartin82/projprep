@@ -73,7 +73,9 @@ proj_prep.default <- function(
 #' @export
 
 common_proj_prep_vars <- function() {
-  c('mlbid', 'fullname', 'firstname', 'lastname', 'position', 'priority_pos')
+  c('mlbid', 'fullname', 'firstname', 'lastname',
+    'position', 'priority_pos', 'projection_name'
+  )
 }
 
 #' @export

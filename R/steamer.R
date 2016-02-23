@@ -110,5 +110,8 @@ get_steamer <- function(year) {
   clean_h <- steamer_mlbid_match(clean_h)
   clean_p <- steamer_mlbid_match(clean_p)
 
+  clean_h$projection_name <- 'steamer'
+  clean_p$projection_name <- 'steamer'
+
   list('h' = clean_h, 'p' = clean_p)
 }

@@ -34,8 +34,6 @@ zscore <- function(
       stringsAsFactors = FALSE
     )
 
-    head(for_zscoring)
-
     zscore_df <- for_zscoring %>%
       dplyr::group_by(position) %>%
       dplyr::mutate(
