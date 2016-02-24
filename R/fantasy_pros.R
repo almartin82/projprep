@@ -56,6 +56,12 @@ clean_raw_fantasy_pros <- function(df) {
   df$FirstName <- split_firstlast(df$FullName)$first
   df$LastName <- split_firstlast(df$FullName)$last
 
+  df <- df %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, user_settings$position_hierarchy)
+    )
+
   #clean up df names
   names(df) <- tolower(names(df))
 

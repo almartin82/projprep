@@ -4,7 +4,7 @@ set_defaults <- function() {
   h <- c('r', 'rbi', 'sb', 'tb', 'obp')
   p <- c('w', 'sv', 'k', 'era', 'whip')
 
-  position_hierarchy <- c('C', 'SS', '2B', '3B', 'OF', '1B', 'SP', 'RP')
+  position_hierarchy <- c('C', 'SS', '2B', '3B', 'OF', '1B', 'DH', 'SP', 'RP')
 
   user_settings <- list(
     site = 'yahoo',

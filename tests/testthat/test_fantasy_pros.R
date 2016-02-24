@@ -13,6 +13,6 @@ test_that("fantasy_pros reads raw data", {
 test_that("clean_raw_fantasy_pros cleans df", {
 
   f_clean <- clean_raw_fantasy_pros(f$h)
-  head(f_clean)
+  head(f_clean) %>% as.data.frame()
 
 })

@@ -26,7 +26,7 @@ tag_position <- function(player_positions, priorities) {
 
 priority_position <- function(player_positions, priorities) {
 
-  player_positions <- strsplit(player_positions, ', ') %>% unlist()
+  player_positions <- strsplit(player_positions, ',\\s?') %>% unlist()
   tagged <- tag_position(player_positions, priorities)
   most_scarce <- min(tagged)
 
