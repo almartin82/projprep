@@ -10,7 +10,7 @@ read_raw_steamer(year)
 \item{year}{desired year.  valid values: 2016}
 }
 \value{
-list of data frames
+named list of data frames
 }
 \description{
 this function will handle any logic for changing urls, etc.

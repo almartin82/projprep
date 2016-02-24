@@ -2,7 +2,7 @@
 #'
 #' @param url html table with steamer projections
 #'
-#' @return a data frame with projections
+#' @return data frame with steamer projection data
 #' @export
 
 scrape_steamer <- function(url) {
@@ -26,7 +26,7 @@ scrape_steamer <- function(url) {
 #'
 #' @param year desired year.  valid values: 2016
 #'
-#' @return list of data frames
+#' @return named list of data frames
 #' @export
 
 read_raw_steamer <- function(year) {
@@ -96,7 +96,7 @@ steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
 #' Get steamer projections
 #'
 #' @description workhorse function.  reads the raw steamer data file,
-#' cleans up headers, returns consistent df
+#' cleans up headers, returns projection prep object
 #' @inheritParams read_raw_steamer
 #' @return a projection prep object.
 #' @export
@@ -109,6 +109,9 @@ get_steamer <- function(year) {
 
   clean_h <- steamer_mlbid_match(clean_h)
   clean_p <- steamer_mlbid_match(clean_p)
+
+  clean_h$projection_name <- 'steamer'
+  clean_p$projection_name <- 'steamer'
 
   list('h' = clean_h, 'p' = clean_p)
 }

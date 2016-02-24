@@ -34,8 +34,6 @@ zscore <- function(
       stringsAsFactors = FALSE
     )
 
-    head(for_zscoring)
-
     zscore_df <- for_zscoring %>%
       dplyr::group_by(position) %>%
       dplyr::mutate(
@@ -44,6 +42,11 @@ zscore <- function(
 
     zscored[[paste(i, 'zscore', sep = '_')]] <- zscore_df$zscore
   }
+
+  #sum
+  zscored[['zscore_sum']] <- rowSums(
+    zscored[names(zscored) != 'mlbid'] %>% dplyr::bind_rows()
+  )
 
   dplyr::bind_rows(zscored)
 }
