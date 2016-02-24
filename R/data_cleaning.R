@@ -7,6 +7,7 @@
 #' @export
 
 tag_position <- function(player_positions, priorities) {
+
   positions <- lapply(
     X = player_positions,
     FUN = function(x) match(x, priorities)
@@ -24,11 +25,26 @@ tag_position <- function(player_positions, priorities) {
 #' @export
 
 priority_position <- function(player_positions, priorities) {
+
   player_positions <- strsplit(player_positions, ', ') %>% unlist()
   tagged <- tag_position(player_positions, priorities)
   most_scarce <- min(tagged)
 
   priorities[most_scarce]
+}
+
+
+#' clean OF
+#'
+#' @description converts RF, LF, CF to OF
+#' @param x vector of positions
+#'
+#' @return cleaned character vector
+#' @export
+
+clean_OF <- function(x) {
+
+  gsub('RF|CF|LF', 'OF', x, ignore.case = TRUE)
 }
 
 

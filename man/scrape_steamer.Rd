@@ -10,7 +10,7 @@ scrape_steamer(url)
 \item{url}{html table with steamer projections}
 }
 \value{
-a data frame with projections
+data frame with steamer projection data
 }
 \description{
 Scrape Steamer Projections

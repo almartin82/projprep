@@ -14,6 +14,6 @@ a projection prep object.
 }
 \description{
 workhorse function.  reads the raw steamer data file,
-cleans up headers, returns consistent df
+cleans up headers, returns projection prep object
 }
 
