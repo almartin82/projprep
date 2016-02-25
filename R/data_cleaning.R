@@ -46,5 +46,3 @@ clean_OF <- function(x) {
 
   gsub('RF|CF|LF', 'OF', x, ignore.case = TRUE)
 }
-
-
