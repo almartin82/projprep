@@ -22,7 +22,7 @@ proj_prep.default <- function(
   ...) {
 
   initial_message <- paste0(
-    'building a projection_prep object.\n',
+    'building a projection_prep object!\n',
     sprintf('using the following hitting categories: %s',
       paste(user_settings$h, collapse = ', ')
     ),
@@ -31,7 +31,7 @@ proj_prep.default <- function(
             paste(user_settings$p, collapse = ', ')
     ),
     '\n',
-    'to change any of these settings, run `set_defaults()`.'
+    'to change any of these settings, run `set_defaults()`.\n'
   )
   message(initial_message)
 
@@ -42,7 +42,7 @@ proj_prep.default <- function(
   h_zscore <- zscore(
     proj_list = pp_filtered,
     hit_pitch = 'h',
-    positional = TRUE
+    positional = FALSE
   )
   h_with_zscore <- pp_filtered$h %>%
     dplyr::left_join(h_zscore, by = 'mlbid')
@@ -50,20 +50,27 @@ proj_prep.default <- function(
   p_zscore <- zscore(
     proj_list = pp_filtered,
     hit_pitch = 'p',
-    positional = TRUE
+    positional = FALSE
   )
   p_with_zscore <- pp_filtered$p %>%
     dplyr::left_join(p_zscore, by = 'mlbid')
 
-  list('h' = h_with_zscore, 'p' = p_with_zscore)
 
   #find replacement by position
+  proj_list <- list('h' = h_with_zscore, 'p' = p_with_zscore)
+
+  h_replacement <- find_replacement(proj_list, 'h')
+  p_replacement <- find_replacement(proj_list, 'p')
 
   #zscore again
 
   #express as prices
 
   #return
+  list(
+    'h' = h_with_zscore, 'p' = p_with_zscore,
+    'replacement' = c(h_replacement, p_replacement)
+  )
 }
 
 
