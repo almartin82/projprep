@@ -47,6 +47,7 @@ clean_raw_fantasy_pros <- function(df) {
   df$FirstName <- split_firstlast(df$FullName)$first
   df$LastName <- split_firstlast(df$FullName)$last
 
+  #get positions from messy character string
   position <- lapply(player_names, function(x) extract(x, 2)) %>% unlist()
   team_position <- strsplit(position, ' - ', fixed = TRUE)
   df$team <- lapply(team_position, function(x) extract(x, 1)) %>% unlist()
@@ -55,17 +56,26 @@ clean_raw_fantasy_pros <- function(df) {
     lapply(function(x) extract(x, 1)) %>% unlist()
   df$position <- clean_OF(df$position)
 
+  #get priority position
   df <- df %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
       priority_pos = priority_position(position, user_settings$position_hierarchy)
     )
 
-
-
   #clean up df names
   names(df) <- tolower(names(df))
 
+  #build tb
+  if ('avg' %in% names(df)) {
+    df <- df %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        tb = calc_tb(h, `2b`, `3b`, hr)
+      )
+  }
+
+  #drop unwanted columns
   df <- df %>%
     dplyr::select(-player)
 

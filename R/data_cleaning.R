@@ -46,3 +46,19 @@ clean_OF <- function(x) {
 
   gsub('RF|CF|LF', 'OF', x, ignore.case = TRUE)
 }
+
+
+#' calc_tb
+#'
+#' @param h total hits
+#' @param doubles num doubles
+#' @param triples num triples
+#' @param hr num homers
+#'
+#' @return numeric vector
+#' @export
+
+calc_tb <- function(h, doubles, triples, hr) {
+
+  h + doubles + (2 * triples) + (3 * hr)
+}

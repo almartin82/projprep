@@ -82,7 +82,7 @@ common_proj_prep_vars <- function() {
 #' @rdname common_proj_prep_vars
 
 common_proj_prep_h_vars <- function() {
-  c(common_proj_prep_vars(), 'ab', 'pa')
+  c(common_proj_prep_vars(), 'ab')
 }
 
 #' @export
