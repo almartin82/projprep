@@ -42,7 +42,7 @@ proj_prep.default <- function(
   h_zscore <- zscore(
     proj_list = pp_filtered,
     hit_pitch = 'h',
-    positional = FALSE
+    limit_player_pool = TRUE
   )
   h_with_zscore <- pp_filtered$h %>%
     dplyr::left_join(h_zscore, by = 'mlbid')
@@ -50,11 +50,10 @@ proj_prep.default <- function(
   p_zscore <- zscore(
     proj_list = pp_filtered,
     hit_pitch = 'p',
-    positional = FALSE
+    limit_player_pool = TRUE
   )
   p_with_zscore <- pp_filtered$p %>%
     dplyr::left_join(p_zscore, by = 'mlbid')
-
 
   #find replacement by position
   proj_list <- list('h' = h_with_zscore, 'p' = p_with_zscore)
@@ -62,7 +61,7 @@ proj_prep.default <- function(
   h_replacement <- find_replacement(proj_list, 'h')
   p_replacement <- find_replacement(proj_list, 'p')
 
-  #zscore again
+  #zscores with replacement position adjustments
 
   #express as prices
 

@@ -15,6 +15,9 @@ set_defaults <- function() {
     'p' = list('P' = 3)
   )
 
+  roster_size <- 27
+  h_roster_pct <- 5/9
+
   position_hierarchy <- c('C', 'SS', '2B', '3B', 'OF', '1B', 'DH', 'SP', 'RP')
 
   user_settings <- list(
@@ -23,6 +26,8 @@ set_defaults <- function() {
     'league_size' = league_size,
     'positions' = positions,
     'special_positions' = positions,
+    'roster_size' = roster_size,
+    'h_roster_pct' = h_roster_pct,
     'position_hierarchy' = position_hierarchy
   )
   save(user_settings, file = file.path('data', 'user_settings.rda'))

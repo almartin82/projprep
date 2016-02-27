@@ -4,14 +4,15 @@
 \alias{zscore}
 \title{zscore}
 \usage{
-zscore(proj_list, hit_pitch, positional = FALSE)
+zscore(proj_list, hit_pitch, limit_player_pool = TRUE)
 }
 \arguments{
 \item{proj_list}{named ('h', 'p') list of data frames, ie output of get_steamer}
 
 \item{hit_pitch}{'h' or 'p'}
 
-\item{positional}{if TRUE, calculates zscore relative to position}
+\item{limit_player_pool}{zscores relative to all players, or relative size of drafted
+player pool?}
 }
 \value{
 list of data frames with stat zscores

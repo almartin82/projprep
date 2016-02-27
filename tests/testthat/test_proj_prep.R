@@ -16,4 +16,5 @@ test_that('proj_prep object with fantasypros projections', {
 
   expect_is(pp$h, 'data.frame')
   expect_is(pp$p, 'data.frame')
+  expect_is(pp$replacement, 'list')
 })

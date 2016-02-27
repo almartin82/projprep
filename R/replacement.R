@@ -11,8 +11,8 @@
 find_replacement <- function(pp_list, hit_pitch) {
 
   initial_message <- sprintf(
-      'finding replacement-level player, assuming %s teams.\n',
-      user_settings$league_size
+      'finding %s replacement-level players, assuming %s teams.',
+      hit_pitch, user_settings$league_size
     )
   message(initial_message)
 
