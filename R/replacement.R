@@ -42,6 +42,13 @@ find_standard_replacement <- function(pp_list, hit_pitch) {
 }
 
 
+
+find_special_replacement <- function(pp_list, hit_pitch) {
+
+}
+
+
+
 #' calculates value over replacement player, by position
 #'
 #' @inheritParams find_standard_replacement

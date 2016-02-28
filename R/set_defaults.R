@@ -11,7 +11,8 @@ set_defaults <- function() {
   )
 
   special_positions <- list(
-    'h' = list('Util' = 1),
+    #order these from most to least constrained
+    'h' = list('MI' = 1, 'CI' = 1, 'Util' = 1),
     'p' = list('P' = 3)
   )
 
