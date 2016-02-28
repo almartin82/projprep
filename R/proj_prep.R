@@ -58,10 +58,11 @@ proj_prep.default <- function(
   #find replacement by position
   proj_list <- list('h' = h_with_zscore, 'p' = p_with_zscore)
 
-  h_replacement <- find_replacement(proj_list, 'h')
-  p_replacement <- find_replacement(proj_list, 'p')
+  h_replacement <- find_standard_replacement(proj_list, 'h')
+  p_replacement <- find_standard_replacement(proj_list, 'p')
 
   #zscores with replacement position adjustments
+
 
   #express as prices
 

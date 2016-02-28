@@ -1,5 +1,4 @@
-
-#' Finds the mlbid of the replacement player, for each position
+#' Finds the mlbid of the replacement player, for each standard position
 #'
 #' @param pp_list named list of zscored stats. look at `proj_prep` to see
 #' where this function gets called
@@ -8,7 +7,7 @@
 #' @return named list, with mlbids of replacement player per-position
 #' @export
 
-find_replacement <- function(pp_list, hit_pitch) {
+find_standard_replacement <- function(pp_list, hit_pitch) {
 
   initial_message <- sprintf(
       'finding %s replacement-level players, assuming %s teams.',
@@ -40,4 +39,23 @@ find_replacement <- function(pp_list, hit_pitch) {
   }
 
   replacement_player
+}
+
+
+#' calculates value over replacement player, by position
+#'
+#' @inheritParams find_replacement
+#'
+#' @return data frame, with zscore_replacement value added
+#' @export
+
+value_over_replacement <- function(pp_list, hit_pitch) {
+
+  initial_message <- sprintf(
+    're-calculating value over %s replacement, by position.', hit_pitch
+  )
+  message(initial_message)
+
+
+
 }

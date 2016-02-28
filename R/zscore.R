@@ -89,7 +89,6 @@ zscore <- function(
       zscored_limit[[paste(i, 'zscore', sep = '_')]] <- stat_zscored$zscore
     }
 
-    farts <<- zscored_limit
     #sum
     zscored_limit[['zscore_sum']] <- rowSums(
       zscored_limit[names(zscored_limit) != 'mlbid'] %>% dplyr::bind_rows()
@@ -100,5 +99,3 @@ zscore <- function(
 
   return(out)
 }
-
-
