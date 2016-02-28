@@ -44,7 +44,7 @@ find_standard_replacement <- function(pp_list, hit_pitch) {
 
 #' calculates value over replacement player, by position
 #'
-#' @inheritParams find_replacement
+#' @inheritParams find_standard_replacement
 #'
 #' @return data frame, with zscore_replacement value added
 #' @export

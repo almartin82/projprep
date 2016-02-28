@@ -6,6 +6,12 @@
 \usage{
 value_over_replacement(pp_list, hit_pitch)
 }
+\arguments{
+\item{pp_list}{named list of zscored stats. look at `proj_prep` to see
+where this function gets called}
+
+\item{hit_pitch}{c('h', 'p')}
+}
 \value{
 data frame, with zscore_replacement value added
 }
