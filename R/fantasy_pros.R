@@ -55,6 +55,7 @@ clean_raw_fantasy_pros <- function(df) {
   df$position <- strsplit(position_dirty, ')', fixed = TRUE) %>%
     lapply(function(x) extract(x, 1)) %>% unlist()
   df$position <- clean_OF(df$position)
+  df$position <- clean_pos(df$position)
 
   #get priority position
   df <- df %>%

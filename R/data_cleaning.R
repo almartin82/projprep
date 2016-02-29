@@ -48,6 +48,25 @@ clean_OF <- function(x) {
 }
 
 
+
+#' clean pos
+#'
+#' @description converts invalid position types to valid
+#' @param x vector of positions
+#'
+#' @return cleaned character vector
+#' @export
+
+clean_pos <- function(x) {
+
+  #eg 2016 Mpho' Ngoepe, fantasy pros
+  out <- gsub('IF', '2B', x, ignore.case = TRUE)
+
+  return(out)
+}
+
+
+
 #' calc_tb
 #'
 #' @param h total hits

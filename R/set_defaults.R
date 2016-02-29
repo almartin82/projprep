@@ -6,7 +6,7 @@ set_defaults <- function() {
 
   league_size <- 12
   positions <- list(
-    'h' = list('C' = 1, '1B' = 1, '2B' = 1, 'SS' = 1, '3B' = 1, 'OF' = 1),
+    'h' = list('C' = 1, '1B' = 1, '2B' = 1, 'SS' = 1, '3B' = 1, 'OF' = 3),
     'p' = list('SP' = 3, 'RP' = 3)
   )
 
@@ -19,14 +19,14 @@ set_defaults <- function() {
   roster_size <- 27
   h_roster_pct <- 5/9
 
-  position_hierarchy <- c('C', 'SS', '2B', '3B', 'OF', '1B', 'DH', 'SP', 'RP')
+  position_hierarchy <- c('C', 'SS', '3B', '2B', 'OF', '1B', 'DH', 'SP', 'RP')
 
   user_settings <- list(
     site = 'yahoo',
     'h' = h, 'p' = p,
     'league_size' = league_size,
     'positions' = positions,
-    'special_positions' = positions,
+    'special_positions' = special_positions,
     'roster_size' = roster_size,
     'h_roster_pct' = h_roster_pct,
     'position_hierarchy' = position_hierarchy
