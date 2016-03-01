@@ -118,39 +118,6 @@ find_special_replacement <- function(pp_list, hit_pitch) {
 }
 
 
-foo <- function() {
-  f <- get_fantasy_pros(2016)
-  proj_list <- f
-
-  pp_filtered <- limit_proj_vars(proj_list)
-
-  #zscore
-  h_zscore <- zscore(
-    proj_list = pp_filtered,
-    hit_pitch = 'h',
-    limit_player_pool = TRUE
-  )
-  h_with_zscore <- pp_filtered$h %>%
-    dplyr::left_join(h_zscore, by = 'mlbid')
-
-  p_zscore <- zscore(
-    proj_list = pp_filtered,
-    hit_pitch = 'p',
-    limit_player_pool = TRUE
-  )
-  p_with_zscore <- pp_filtered$p %>%
-    dplyr::left_join(p_zscore, by = 'mlbid')
-
-  #find replacement by position
-  pp_list <- list('h' = h_with_zscore, 'p' = p_with_zscore)
-
-  h_replacement <- find_standard_replacement(pp_list, 'h')
-  p_replacement <- find_standard_replacement(pp_list, 'p')
-  pp_list[['replacement']] <- list(
-    'h' = h_replacement, 'p' = p_replacement)
-
-  find_special_replacement(pp_list, 'h')
-}
 
 #' calculates value over replacement player, by position
 #'
