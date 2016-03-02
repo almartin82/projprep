@@ -64,6 +64,11 @@ clean_raw_fantasy_pros <- function(df) {
       priority_pos = priority_position(position, user_settings$position_hierarchy)
     )
 
+  #DH to util if util
+  if ('Util' %in% names(user_settings$special_positions$h)) {
+    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
+  }
+
   #clean up df names
   names(df) <- tolower(names(df))
 

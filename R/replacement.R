@@ -42,6 +42,15 @@ find_standard_replacement <- function(pp_list, hit_pitch) {
 }
 
 
+#' replacement_to_df
+#'
+#' @description turns the replacement list into a data frame to assist
+#' in calculating replacement level
+#' @inheritParams find_standard_replacement
+#'
+#' @return data frame
+#' @export
+
 replacement_to_df <- function(pp_list, hit_pitch) {
 
   replacement_list <- pp_list$replacement %>% magrittr::extract2(hit_pitch)
@@ -61,6 +70,16 @@ replacement_to_df <- function(pp_list, hit_pitch) {
 }
 
 
+#' find special replacement
+#'
+#' @description finds replacement level (and replacement position) for
+#' non-standard (eg util) positions
+#' @inheritParams find_standard_replacement
+#'
+#' @return named list, with replacement player for special positions and
+#' data frame with mlbid / position for determining replacement
+#' @export
+
 find_special_replacement <- function(pp_list, hit_pitch) {
 
   this_df <- pp_list %>% magrittr::extract2(hit_pitch)
@@ -74,7 +93,6 @@ find_special_replacement <- function(pp_list, hit_pitch) {
       priority_pos = position,
       replacement_level = zscore_sum
     )
-
   this_df <- this_df %>%
     dplyr::left_join(
       replacement_df, by = 'priority_pos'
@@ -84,11 +102,21 @@ find_special_replacement <- function(pp_list, hit_pitch) {
       above_replacement = zscore_sum > replacement_level
     )
 
+  #above replacement for a special position? (starts with nobody)
+  this_df$special_above_replacement <- FALSE
+
+  #keep track of replacement position.
+  #initialize as priority position.
+  #we'll replace with special pos for those above replacement below
+  this_df$replacement_position <- this_df$priority_pos
+
   replacement_player <- list()
   for (i in seq_along(special_pos)) {
+    #what is the special position
     pos <- special_pos[i]
     pos_name <- names(pos)
 
+    #find what regular positions map to that special position
     pos_map <- special_positions_map %>% magrittr::extract2(pos_name)
 
     pos_matches <- list()
@@ -102,7 +130,7 @@ find_special_replacement <- function(pp_list, hit_pitch) {
 
     filter_df <- this_df %>%
       dplyr::filter(
-        !above_replacement & include_test
+        !above_replacement & !special_above_replacement & include_test
       ) %>%
       dplyr::ungroup() %>%
       dplyr::mutate(
@@ -112,9 +140,25 @@ find_special_replacement <- function(pp_list, hit_pitch) {
     num <- special_pos[i][[1]] * user_settings$league_size
     replacement_id <- filter_df[filter_df$ranking == num + 1, 'mlbid'] %>% unname()
     replacement_player[[pos_name]] <- unlist(replacement_id)
+
+    #put back on df
+    is_above_replacement <- filter_df[filter_df$ranking <= num , 'mlbid'] %>%
+      unname() %>% unlist()
+    this_df$special_above_replacement <- ifelse(
+      this_df$mlbid %in% is_above_replacement, TRUE, this_df$special_above_replacement
+    )
+    this_df$replacement_position <- ifelse(
+      this_df$mlbid %in% is_above_replacement, pos_name, this_df$replacement_position
+    )
   }
 
-  replacement_player
+  list(
+    'replacement_player' = replacement_player,
+    'replacement_position' = this_df %>%
+      dplyr::select(
+        mlbid, replacement_position
+      )
+  )
 }
 
 

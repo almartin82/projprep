@@ -66,10 +66,14 @@ proj_prep.default <- function(
   )
 
   h_replacement_special <- find_special_replacement(proj_list, 'h')
-  p_replacement_special <- find_special_replacement(proj_list, 'p')
+  p_replacement_special <- find_special_replacement(proj_list, 'p')$replacement_player
   proj_list[['special_replacement']] <- list(
-    'h' = h_replacement_special,
-    'p' = p_replacement_special
+    'h' = h_replacement_special$replacement_player,
+    'p' = p_replacement_special$replacement_player
+  )
+  proj_list[['replacement_position']] <- list(
+    'h' = h_replacement_special$replacement_position,
+    'p' = p_replacement_special$replacement_position
   )
 
   #zscores with replacement position adjustments
