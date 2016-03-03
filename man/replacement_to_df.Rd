@@ -4,7 +4,7 @@
 \alias{replacement_to_df}
 \title{replacement_to_df}
 \usage{
-replacement_to_df(pp_list, hit_pitch)
+replacement_to_df(pp_list, hit_pitch, special = FALSE)
 }
 \arguments{
 \item{pp_list}{named list of zscored stats. look at `proj_prep` to see

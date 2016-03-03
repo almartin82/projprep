@@ -51,9 +51,16 @@ find_standard_replacement <- function(pp_list, hit_pitch) {
 #' @return data frame
 #' @export
 
-replacement_to_df <- function(pp_list, hit_pitch) {
+replacement_to_df <- function(pp_list, hit_pitch, special = FALSE) {
 
-  replacement_list <- pp_list$replacement %>% magrittr::extract2(hit_pitch)
+  if (special) {
+    which_replacement <- 'special_replacement'
+  } else {
+    which_replacement <- 'replacement'
+  }
+  replacement_list <- pp_list %>%
+    magrittr::extract2(which_replacement) %>%
+    magrittr::extract2(hit_pitch)
   this_df <- pp_list %>% magrittr::extract2(hit_pitch)
 
   r_df <- data.frame(
@@ -83,7 +90,7 @@ replacement_to_df <- function(pp_list, hit_pitch) {
 find_special_replacement <- function(pp_list, hit_pitch) {
 
   this_df <- pp_list %>% magrittr::extract2(hit_pitch)
-  replacement_df <- replacement_to_df(pp_list, hit_pitch)
+  replacement_df <- replacement_to_df(pp_list, hit_pitch, special = FALSE)
   special_pos <- user_settings$special_positions %>% magrittr::extract2(hit_pitch)
 
   #above below regular replacement?
@@ -177,6 +184,33 @@ value_over_replacement <- function(pp_list, hit_pitch) {
   )
   message(initial_message)
 
+  #grab the df
+  this_df <- pp_list %>% magrittr::extract2(hit_pitch)
 
+  #grab the replacement positions df
+  this_r_pos <- pp_list %>%
+    magrittr::extract2('replacement_position') %>%
+    magrittr::extract2(hit_pitch)
 
+  #put replacement position onto each player
+  this_df <- this_df %>%
+    dplyr::left_join(this_r_pos, by = 'mlbid')
+
+  #grab replacement position and convert to df
+  r_df <- replacement_to_df(pp_list, hit_pitch, special = FALSE)
+  s_r_df <- replacement_to_df(pp_list, hit_pitch, special = TRUE)
+  r_levels_df <- rbind(r_df, s_r_df) %>%
+    dplyr::rename(adjustment_zscore = zscore_sum)
+
+  #add replacement level to the zscore sum
+  this_df <- this_df %>%
+    dplyr::left_join(
+      r_levels_df, by = c('replacement_position' = 'position')
+    ) %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      final_zscore = zscore_sum - adjustment_zscore
+    )
+
+  this_df
 }

@@ -77,9 +77,10 @@ proj_prep.default <- function(
   )
 
   #zscores with replacement position adjustments
-
+  h_plus_replacement <- value_over_replacement(proj_list, 'h')
 
   #express as prices
+  proj_list[['with_replacement']] <- h_plus_replacement
 
   #return
   proj_list
