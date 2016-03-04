@@ -17,6 +17,7 @@ set_defaults <- function() {
   )
 
   roster_size <- 27
+  team_budget <- 270
   h_roster_pct <- 5/9
 
   position_hierarchy <- c('C', 'SS', '3B', '2B', 'OF', '1B', 'DH', 'SP', 'RP')
@@ -28,6 +29,7 @@ set_defaults <- function() {
     'positions' = positions,
     'special_positions' = special_positions,
     'roster_size' = roster_size,
+    'team_budget' = team_budget,
     'h_roster_pct' = h_roster_pct,
     'position_hierarchy' = position_hierarchy
   )
