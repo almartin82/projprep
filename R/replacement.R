@@ -205,11 +205,17 @@ value_over_replacement <- function(pp_list, hit_pitch) {
   #add replacement level to the zscore sum
   this_df <- this_df %>%
     dplyr::left_join(
-      r_levels_df, by = c('replacement_position' = 'position')
+      r_levels_df[, c('position', 'adjustment_zscore')],
+      by = c('replacement_position' = 'position')
     ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      final_zscore = zscore_sum - adjustment_zscore
+      adjustment_zscore = -1 * adjustment_zscore,
+      final_zsum = zscore_sum + adjustment_zscore
+    ) %>%
+    dplyr::rename(
+      unadjusted_zsum = zscore_sum,
+      replacement_pos = replacement_position
     )
 
   this_df
