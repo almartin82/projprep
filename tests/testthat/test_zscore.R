@@ -8,13 +8,11 @@ test_that('zscore works with positional / non-positional groups', {
   #zscore
   ex1 <- zscore(
     proj_list = s_filtered,
-    hit_pitch = 'h',
-    positional = TRUE
+    hit_pitch = 'h'
   )
   ex2 <- zscore(
     proj_list = s_filtered,
-    hit_pitch = 'h',
-    positional = FALSE
+    hit_pitch = 'h'
   )
 
   expect_is(ex1, 'data.frame')

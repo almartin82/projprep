@@ -26,7 +26,7 @@ tag_position <- function(player_positions, priorities) {
 
 priority_position <- function(player_positions, priorities) {
 
-  player_positions <- strsplit(player_positions, ', ') %>% unlist()
+  player_positions <- strsplit(player_positions, ',\\s?') %>% unlist()
   tagged <- tag_position(player_positions, priorities)
   most_scarce <- min(tagged)
 
@@ -48,3 +48,36 @@ clean_OF <- function(x) {
 }
 
 
+
+#' clean pos
+#'
+#' @description converts invalid position types to valid
+#' @param x vector of positions
+#'
+#' @return cleaned character vector
+#' @export
+
+clean_pos <- function(x) {
+
+  #eg 2016 Mpho' Ngoepe, fantasy pros
+  out <- gsub('IF', '2B', x, ignore.case = TRUE)
+
+  return(out)
+}
+
+
+
+#' calc_tb
+#'
+#' @param h total hits
+#' @param doubles num doubles
+#' @param triples num triples
+#' @param hr num homers
+#'
+#' @return numeric vector
+#' @export
+
+calc_tb <- function(h, doubles, triples, hr) {
+
+  h + doubles + (2 * triples) + (3 * hr)
+}

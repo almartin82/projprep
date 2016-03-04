@@ -1,0 +1,26 @@
+---
+title: "sysdata"
+output: html_document
+---
+
+Here's a reproducible script for everything in `sysdata.rda`.
+
+'special positions' handles positions like `CI` and `Util`.  Here are the mappings:
+
+```{r}
+
+special_positions_map <- list(
+  'CI' = c('1B', '3B'),
+  'MI' = c('2B', 'SS'),
+  'Util' = c('C', '1B', '2B', 'SS', '3B', 'OF', 'DH'),
+  'P' = c('SP', 'RP')
+)
+
+```
+
+Save:
+```{r}
+
+save(special_positions_map, file = file.path('data', 'special_positions_map.rda'))
+
+```

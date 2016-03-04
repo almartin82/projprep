@@ -22,7 +22,7 @@ proj_prep.default <- function(
   ...) {
 
   initial_message <- paste0(
-    'building a projection_prep object.\n',
+    'building a projection_prep object!\n',
     sprintf('using the following hitting categories: %s',
       paste(user_settings$h, collapse = ', ')
     ),
@@ -31,7 +31,7 @@ proj_prep.default <- function(
             paste(user_settings$p, collapse = ', ')
     ),
     '\n',
-    'to change any of these settings, run `set_defaults()`.'
+    'to change any of these settings, run `set_defaults()`.\n'
   )
   message(initial_message)
 
@@ -42,7 +42,7 @@ proj_prep.default <- function(
   h_zscore <- zscore(
     proj_list = pp_filtered,
     hit_pitch = 'h',
-    positional = TRUE
+    limit_player_pool = TRUE
   )
   h_with_zscore <- pp_filtered$h %>%
     dplyr::left_join(h_zscore, by = 'mlbid')
@@ -50,20 +50,40 @@ proj_prep.default <- function(
   p_zscore <- zscore(
     proj_list = pp_filtered,
     hit_pitch = 'p',
-    positional = TRUE
+    limit_player_pool = TRUE
   )
   p_with_zscore <- pp_filtered$p %>%
     dplyr::left_join(p_zscore, by = 'mlbid')
 
-  list('h' = h_with_zscore, 'p' = p_with_zscore)
-
   #find replacement by position
+  proj_list <- list('h' = h_with_zscore, 'p' = p_with_zscore)
 
-  #zscore again
+  h_replacement <- find_standard_replacement(proj_list, 'h')
+  p_replacement <- find_standard_replacement(proj_list, 'p')
+  proj_list[['replacement']] <- list(
+    'h' = h_replacement,
+    'p' = p_replacement
+  )
+
+  h_replacement_special <- find_special_replacement(proj_list, 'h')
+  p_replacement_special <- find_special_replacement(proj_list, 'p')$replacement_player
+  proj_list[['special_replacement']] <- list(
+    'h' = h_replacement_special$replacement_player,
+    'p' = p_replacement_special$replacement_player
+  )
+  proj_list[['replacement_position']] <- list(
+    'h' = h_replacement_special$replacement_position,
+    'p' = p_replacement_special$replacement_position
+  )
+
+  #zscores with replacement position adjustments
+  h_plus_replacement <- value_over_replacement(proj_list, 'h')
 
   #express as prices
+  proj_list[['with_replacement']] <- h_plus_replacement
 
   #return
+  proj_list
 }
 
 
@@ -82,7 +102,7 @@ common_proj_prep_vars <- function() {
 #' @rdname common_proj_prep_vars
 
 common_proj_prep_h_vars <- function() {
-  c(common_proj_prep_vars(), 'ab', 'pa')
+  c(common_proj_prep_vars(), 'ab')
 }
 
 #' @export
