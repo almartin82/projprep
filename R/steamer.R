@@ -82,6 +82,11 @@ clean_raw_steamer <- function(df, hit_pitch) {
       priority_pos = priority_position(position, hierarchy)
     )
 
+  #DH to util if util
+  if ('Util' %in% names(user_settings$special_positions$h)) {
+    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
+  }
+
   #drop unwanted
   mask <- names(df) %in% c('#', 'espn', 'yahoo')
 
