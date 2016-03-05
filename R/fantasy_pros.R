@@ -38,7 +38,16 @@ read_raw_fantasy_pros <- function(year) {
 }
 
 
-clean_raw_fantasy_pros <- function(df) {
+#' Cleans up a fantasy pros projection scrape
+#'
+#' @description names, consistent stat names, etc.
+#' @param df raw fantasy pros df.  output of read_raw_fantasy_pros.
+#' @param hit_pitch c('h', 'p')
+#'
+#' @return a data frame with consistent variable names
+#' @export
+
+clean_raw_fantasy_pros <- function(df, hit_pitch) {
 
   #clean player names
   player_names <- strsplit(df$Player, '(', fixed = TRUE)
@@ -49,19 +58,28 @@ clean_raw_fantasy_pros <- function(df) {
 
   #get positions from messy character string
   position <- lapply(player_names, function(x) extract(x, 2)) %>% unlist()
-  team_position <- strsplit(position, ' - ', fixed = TRUE)
+  position <- ifelse(
+    !grepl('-', position, fixed = TRUE), paste0('None - ', position), position
+  )
+  team_position <- strsplit(position, ' - ')
+
   df$team <- lapply(team_position, function(x) extract(x, 1)) %>% unlist()
   position_dirty <- lapply(team_position, function(x) extract(x, 2)) %>% unlist()
   df$position <- strsplit(position_dirty, ')', fixed = TRUE) %>%
     lapply(function(x) extract(x, 1)) %>% unlist()
   df$position <- clean_OF(df$position)
   df$position <- clean_pos(df$position)
-
+  df$position <- clean_p(df$position)
   #get priority position
+  if (hit_pitch == 'h') {
+    hierarchy <- user_settings$h_hierarchy
+  } else if (hit_pitch == 'p') {
+    hierarchy <- user_settings$p_hierarchy
+  }
   df <- df %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      priority_pos = priority_position(position, user_settings$position_hierarchy)
+      priority_pos = priority_position(position, hierarchy)
     )
 
   #DH to util if util
@@ -109,8 +127,8 @@ fantasy_pros_mlbid_match <- function(fantasy_pros_df, mlbid = NA) {
 get_fantasy_pros <- function(year) {
 
   raw <- read_raw_fantasy_pros(year)
-  clean_h <- clean_raw_fantasy_pros(raw$h)
-  clean_p <- clean_raw_fantasy_pros(raw$p)
+  clean_h <- clean_raw_fantasy_pros(raw$h, 'h')
+  clean_p <- clean_raw_fantasy_pros(raw$p, 'p')
 
   clean_h <- fantasy_pros_mlbid_match(clean_h)
   clean_p <- fantasy_pros_mlbid_match(clean_p)

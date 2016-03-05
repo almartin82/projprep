@@ -25,7 +25,8 @@ set_defaults <- function() {
 
   pct_budget_h <- .7
 
-  position_hierarchy <- c('C', 'SS', '3B', '2B', 'OF', '1B', 'DH', 'SP', 'RP')
+  h_hierarchy <- c('C', 'SS', '3B', '2B', 'OF', '1B', 'DH')
+  p_hierarchy <- c('SP', 'RP')
 
   user_settings <- list(
     site = 'yahoo',
@@ -37,7 +38,8 @@ set_defaults <- function() {
     'roster_size' = roster_size,
     'team_budget' = team_budget,
     'h_roster_pct' = h_roster_pct,
-    'position_hierarchy' = position_hierarchy,
+    'h_hierarchy' = h_hierarchy,
+    'p_hierarchy' = p_hierarchy,
     'pct_budget_h' = pct_budget_h
   )
   save(user_settings, file = file.path('data', 'user_settings.rda'))

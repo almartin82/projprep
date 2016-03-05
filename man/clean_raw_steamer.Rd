@@ -4,10 +4,12 @@
 \alias{clean_raw_steamer}
 \title{Cleans up a steamer projection file.}
 \usage{
-clean_raw_steamer(df)
+clean_raw_steamer(df, hit_pitch)
 }
 \arguments{
 \item{df}{raw steamer df.  output of read_raw_steamer.}
+
+\item{hit_pitch}{c('h', 'p')}
 }
 \value{
 a data frame with consistent variable names

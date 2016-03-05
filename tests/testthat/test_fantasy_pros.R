@@ -13,7 +13,7 @@ test_that("fantasy_pros reads raw data", {
 test_that("clean_raw_fantasy_pros cleans df", {
 
   f <- read_raw_fantasy_pros(2016)
-  f_clean <- clean_raw_fantasy_pros(f$h)
+  f_clean <- clean_raw_fantasy_pros(f$h, 'h')
 })
 
 
