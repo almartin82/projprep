@@ -66,7 +66,8 @@ proj_prep.default <- function(
   )
 
   h_replacement_special <- find_special_replacement(proj_list, 'h')
-  p_replacement_special <- find_special_replacement(proj_list, 'p')$replacement_player
+  p_replacement_special <- find_special_replacement(proj_list, 'p')
+
   proj_list[['special_replacement']] <- list(
     'h' = h_replacement_special$replacement_player,
     'p' = p_replacement_special$replacement_player
@@ -78,9 +79,16 @@ proj_prep.default <- function(
 
   #zscores with replacement position adjustments
   h_plus_replacement <- value_over_replacement(proj_list, 'h')
+  p_plus_replacement <- value_over_replacement(proj_list, 'p')
 
   #express as prices
-  proj_list[['with_replacement']] <- h_plus_replacement
+  proj_list[['h_final']] <- h_plus_replacement
+  h_with_prices <- calculate_prices(proj_list, 'h')
+  proj_list[['h_final']] <- h_with_prices
+
+  proj_list[['p_final']] <- p_plus_replacement
+  p_with_prices <- calculate_prices(proj_list, 'p')
+  proj_list[['p_final']] <- p_with_prices
 
   #return
   proj_list

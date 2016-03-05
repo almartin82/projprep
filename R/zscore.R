@@ -16,15 +16,22 @@ zscore <- function(
 
   this_df <- proj_list %>% magrittr::extract2(hit_pitch)
   this_stats <- user_settings %>% magrittr::extract2(hit_pitch)
+  this_direction <- user_settings %>%
+    magrittr::extract2(paste0(hit_pitch, '_direction'))
 
   zscored <- list()
   zscored[['mlbid']] <- this_df$mlbid
 
-  for (i in this_stats) {
+  for (i in seq_along(this_stats)) {
+
+    stat <- this_stats[i]
+    stat_dir <- this_direction[i]
 
     for_zscoring <- data.frame(
       mlbid = this_df$mlbid,
-      stat = this_df %>% magrittr::extract(i) %>% unname(),
+      stat = this_df %>%
+        magrittr::extract(stat) %>%
+        unname(),
       stringsAsFactors = FALSE
     )
 
@@ -33,7 +40,8 @@ zscore <- function(
         zscore = (stat - mean(stat)) / sd(stat)
       )
 
-    zscored[[paste(i, 'zscore', sep = '_')]] <- zscore_df$zscore
+    zscore_df$zscore <- zscore_df$zscore * stat_dir
+    zscored[[paste(stat, 'zscore', sep = '_')]] <- zscore_df$zscore
   }
 
   #sum
@@ -71,13 +79,17 @@ zscore <- function(
     zscored_limit <- list()
     zscored_limit[['mlbid']] <- this_df$mlbid
 
-    for (i in this_stats) {
+    for (i in seq_along(this_stats)) {
 
-      top_n_stat <- top_n %>% magrittr::extract(i) %>% unname() %>% unlist()
+      stat <- this_stats[i]
+      stat_dir <- this_direction[i]
+
+      top_n_stat <- top_n %>% magrittr::extract(stat) %>%
+        unname() %>% unlist()
 
       for_zscoring <- data.frame(
         mlbid = this_df$mlbid,
-        stat = this_df %>% magrittr::extract(i) %>% unname(),
+        stat = this_df %>% magrittr::extract(stat) %>% unname(),
         stringsAsFactors = FALSE
       )
 
@@ -86,7 +98,8 @@ zscore <- function(
           zscore = (stat - mean(top_n_stat)) / sd(top_n_stat)
         )
 
-      zscored_limit[[paste(i, 'zscore', sep = '_')]] <- stat_zscored$zscore
+      stat_zscored$zscore <- stat_zscored$zscore * stat_dir
+      zscored_limit[[paste(stat, 'zscore', sep = '_')]] <- stat_zscored$zscore
     }
 
     #sum

@@ -47,11 +47,12 @@ read_raw_steamer <- function(year) {
 #'
 #' @description names, consistent stat names, etc.
 #' @param df raw steamer df.  output of read_raw_steamer.
+#' @param hit_pitch c('h', 'p')
 #'
 #' @return a data frame with consistent variable names
 #' @export
 
-clean_raw_steamer <- function(df) {
+clean_raw_steamer <- function(df, hit_pitch) {
 
   #clean up player names
   names(df)[names(df) == 'Name'] <- 'FullName'
@@ -70,10 +71,15 @@ clean_raw_steamer <- function(df) {
   }
 
   #priority_position
+  if (hit_pitch == 'h') {
+    hierarchy <- user_settings$h_hierarchy
+  } else if (hit_pitch == 'p') {
+    hierarchy <- user_settings$p_hierarchy
+  }
   df <- df %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      priority_pos = priority_position(position, user_settings$position_hierarchy)
+      priority_pos = priority_position(position, hierarchy)
     )
 
   #drop unwanted
@@ -104,8 +110,8 @@ steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
 get_steamer <- function(year) {
 
   raw <- read_raw_steamer(year)
-  clean_h <- clean_raw_steamer(raw$h)
-  clean_p <- clean_raw_steamer(raw$p)
+  clean_h <- clean_raw_steamer(raw$h, 'h')
+  clean_p <- clean_raw_steamer(raw$p, 'p')
 
   clean_h <- steamer_mlbid_match(clean_h)
   clean_p <- steamer_mlbid_match(clean_p)

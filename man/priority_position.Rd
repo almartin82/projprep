@@ -4,12 +4,15 @@
 \alias{priority_position}
 \title{priority position}
 \usage{
-priority_position(player_positions, priorities)
+priority_position(player_positions, priorities, strip_unmatched = TRUE)
 }
 \arguments{
 \item{player_positions}{vector of positions (1 player, not vector of vectors)}
 
 \item{priorities}{ranked heirarchy, usually from `user_settings`.}
+
+\item{strip_unmatched}{drop positions that aren't in the priority list?
+useful for weirdo stray eligibility (ie a P that also has OF elig)}
 }
 \value{
 single most scarce position for this player, character
