@@ -2,6 +2,7 @@
 
 S3method(proj_prep,default)
 export(calc_tb)
+export(calculate_prices)
 export(clean_OF)
 export(clean_pos)
 export(clean_raw_steamer)

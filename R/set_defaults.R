@@ -2,7 +2,9 @@
 
 set_defaults <- function() {
   h <- c('r', 'rbi', 'sb', 'tb', 'obp')
+  h_direction <- c(1, 1, 1, 1, 1)
   p <- c('w', 'sv', 'k', 'era', 'whip')
+  p_direction <- c(1, 1, 1, -1, -1)
 
   league_size <- 12
   positions <- list(
@@ -18,20 +20,25 @@ set_defaults <- function() {
 
   roster_size <- 27
   team_budget <- 270
+  #controls how deep into the h player pool we go for initial zscore
   h_roster_pct <- 5/9
+
+  pct_budget_h <- .7
 
   position_hierarchy <- c('C', 'SS', '3B', '2B', 'OF', '1B', 'DH', 'SP', 'RP')
 
   user_settings <- list(
     site = 'yahoo',
     'h' = h, 'p' = p,
+    'h_direction' = h_direction, 'p_direction' = p_direction,
     'league_size' = league_size,
     'positions' = positions,
     'special_positions' = special_positions,
     'roster_size' = roster_size,
     'team_budget' = team_budget,
     'h_roster_pct' = h_roster_pct,
-    'position_hierarchy' = position_hierarchy
+    'position_hierarchy' = position_hierarchy,
+    'pct_budget_h' = pct_budget_h
   )
   save(user_settings, file = file.path('data', 'user_settings.rda'))
 }
