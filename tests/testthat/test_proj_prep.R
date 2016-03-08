@@ -9,6 +9,7 @@ test_that('proj_prep object with steamer projections', {
   expect_is(pp$p, 'data.frame')
 })
 
+
 test_that('proj_prep object with fantasypros projections', {
 
   f <- get_fantasy_pros(2016)
@@ -23,6 +24,7 @@ test_that('proj_prep object with fantasypros projections', {
 
 })
 
+
 test_that('proj_prep object with steamer projections', {
 
   s <- get_steamer(2016)
@@ -36,3 +38,19 @@ test_that('proj_prep object with steamer projections', {
   expect_is(pp$p_final, 'data.frame')
 
 })
+
+
+test_that('proj_prep object with cbs projections', {
+
+  cbs_ex <- get_cbs(2016)
+  pp <- proj_prep(cbs_ex)
+
+  expect_is(pp$h, 'data.frame')
+  expect_is(pp$p, 'data.frame')
+  expect_is(pp$replacement, 'list')
+  expect_is(pp$special_replacement, 'list')
+  expect_is(pp$h_final, 'data.frame')
+  expect_is(pp$p_final, 'data.frame')
+
+})
+

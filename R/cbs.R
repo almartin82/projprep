@@ -40,7 +40,7 @@ scrape_cbs <- function(url, pos) {
 read_raw_cbs <- function(year) {
 
   urls <- list(
-    '2016' = 'http://www.cbssports.com/fantasy/baseball/stats/sortable/cbs/%s/season/standard/projections'
+    '2016' = 'http://www.cbssports.com/fantasy/baseball/stats/sortable/cbs/%s/season/standard/projections?&print_rows=9999'
   )
 
   url <- urls[[as.character(year)]]
@@ -116,8 +116,12 @@ clean_raw_cbs <- function(df, hit_pitch) {
         tb = calc_tb(h, `2b`, `3b`, hr)
       )
   } else if (hit_pitch == 'p') {
+
+    names(df)[names(df) == 's'] <- 'sv'
+    names(df)[names(df) == 'inn'] <- 'ip'
+
     df <- force_numeric(
-      df, c("inn", "gs", "qs", "cg", "w", "l", "s", "bs", "k",
+      df, c("ip", "gs", "qs", "cg", "w", "l", "sv", "bs", "k",
             "bbi", "ha", "era", "whip")
     )
   }
@@ -127,4 +131,39 @@ clean_raw_cbs <- function(df, hit_pitch) {
     dplyr::select(-player, -fpts)
 
   df
+}
+
+
+cbs_mlbid_match <- function(cbs_df, mlbid = NA) {
+  #just a stub for now
+  cbs_df$mlbid <- c(1:nrow(cbs_df))
+
+  cbs_df
+}
+
+
+#' Get cbs
+#'
+#' @description workhorse function.  reads the raw cbs data file,
+#' cleans up headers, returns projection prep object
+#' @param year
+#'
+#' @return projection prep object
+#' @export
+
+get_cbs <- function(year) {
+
+  raw <- read_raw_cbs(year)
+  clean_h <- clean_raw_cbs(raw$h, 'h')
+  clean_p <- clean_raw_cbs(raw$p, 'p')
+
+  clean_h <- cbs_mlbid_match(clean_h)
+  clean_p <- cbs_mlbid_match(clean_p)
+
+  clean_h$projection_name <- 'cbs'
+  clean_p$projection_name <- 'cbs'
+
+  proj_list <- list('h' = clean_h, 'p' = clean_p)
+
+  proj_list
 }
