@@ -2,6 +2,7 @@
 #'
 #' @inheritParams scrape_steamer
 #' @return data frame with fantasy pros projection data
+#'
 #' @export
 
 scrape_fantasy_pros <- function(url) {
@@ -91,7 +92,7 @@ clean_raw_fantasy_pros <- function(df, hit_pitch) {
   names(df) <- tolower(names(df))
 
   #build tb
-  if ('avg' %in% names(df)) {
+  if (hit_pitch == 'h') {
     df <- df %>%
       dplyr::rowwise() %>%
       dplyr::mutate(

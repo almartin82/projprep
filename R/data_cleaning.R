@@ -100,3 +100,26 @@ calc_tb <- function(h, doubles, triples, hr) {
 
   h + doubles + (2 * triples) + (3 * hr)
 }
+
+
+#' force numeric
+#'
+#' @description given a df, and a vector of columns, force those variables
+#' from character to numeric
+#' @param df data frame
+#' @param cols vector of columns that match names in the df
+#'
+#' @return data frame
+#' @export
+
+force_numeric <- function(df, cols) {
+
+  df <- as.data.frame(df, stringsAsFactors = FALSE)
+
+  for(i in cols) {
+    mask <- names(df) == i
+    df[, mask] <- as.numeric(df[, mask])
+  }
+
+  df
+}
