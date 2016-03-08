@@ -6,7 +6,7 @@
 #'
 #' @export
 
-scrape_cbs_h <- function(url, pos) {
+scrape_cbs <- function(url, pos) {
 
   cbs_url <- sprintf(url, pos)
   h <- read_html(cbs_url)
@@ -28,6 +28,8 @@ scrape_cbs_h <- function(url, pos) {
 }
 
 
+
+
 #' Read raw cbs projections for a given year
 #'
 #' @inheritParams read_raw_steamer
@@ -44,15 +46,19 @@ read_raw_cbs <- function(year) {
   url <- urls[[as.character(year)]]
 
   cbs_h <- list()
-  cbs_h[['hc']] <- scrape_cbs_h(url, 'C')
-  cbs_h[['h1b']] <- scrape_cbs_h(url, '1B')
-  cbs_h[['h2b']] <- scrape_cbs_h(url, '2B')
-  cbs_h[['hss']] <- scrape_cbs_h(url, 'SS')
-  cbs_h[['h3b']] <- scrape_cbs_h(url, '3B')
-  cbs_h[['hof']] <- scrape_cbs_h(url, 'OF')
-  cbs_h[['hdf']] <- scrape_cbs_h(url, 'DH')
-
+  cbs_h[['hc']] <- scrape_cbs(url, 'C')
+  cbs_h[['h1b']] <- scrape_cbs(url, '1B')
+  cbs_h[['h2b']] <- scrape_cbs(url, '2B')
+  cbs_h[['hss']] <- scrape_cbs(url, 'SS')
+  cbs_h[['h3b']] <- scrape_cbs(url, '3B')
+  cbs_h[['hof']] <- scrape_cbs(url, 'OF')
+  cbs_h[['hdf']] <- scrape_cbs(url, 'DH')
   h <- dplyr::bind_rows(cbs_h)
 
-  list('h' = h)
+  cbs_p <- list()
+  cbs_p[['sp']] <- scrape_cbs(url, 'SP')
+  cbs_p[['rp']] <- scrape_cbs(url, 'RP')
+  p <- dplyr::bind_rows(cbs_p)
+
+  list('h' = h, 'p' = p)
 }
