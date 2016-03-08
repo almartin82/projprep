@@ -2,6 +2,7 @@
 #'
 #' @inheritParams scrape_steamer
 #' @return data frame with fantasy pros projection data
+#'
 #' @export
 
 scrape_fantasy_pros <- function(url) {
