@@ -62,3 +62,69 @@ read_raw_cbs <- function(year) {
 
   list('h' = h, 'p' = p)
 }
+
+
+#' Cleans up a cbs projection scrape
+#'
+#' @description names, consistent stat names, etc.
+#' @param df raw cbs df.  output of read_raw_cbs.
+#' @param hit_pitch c('h', 'p')
+#'
+#' @return a data frame with consistent variable names
+#' @export
+
+clean_raw_cbs <- function(df, hit_pitch) {
+
+  names(df) <- tolower(names(df))
+
+  #clean player names
+  player_names <- strsplit(df$player, ',', fixed = TRUE)
+  fullname <- lapply(player_names, function(x) extract(x, 1)) %>% unlist()
+  df$fullname <- trim_whitespace(fullname)
+  df$firstname <- split_firstlast(df$fullname)$first
+  df$lastname <- split_firstlast(df$fullname)$last
+
+  #get priority position
+  if (hit_pitch == 'h') {
+    hierarchy <- user_settings$h_hierarchy
+  } else if (hit_pitch == 'p') {
+    hierarchy <- user_settings$p_hierarchy
+  }
+  df <- df %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, hierarchy)
+    )
+
+  #DH to util if util
+  if ('Util' %in% names(user_settings$special_positions$h)) {
+    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
+  }
+
+
+  #build tb
+  if (hit_pitch == 'h') {
+    #string to numeric
+    df <- force_numeric(
+      df, c('ab', 'r', 'h', '1b', '2b', '3b', 'hr', 'rbi', 'bb', 'ko',
+            'sb', 'cs', 'ba', 'obp', 'slg')
+    )
+
+    df <- df %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        tb = calc_tb(h, `2b`, `3b`, hr)
+      )
+  } else if (hit_pitch == 'p') {
+    df <- force_numeric(
+      df, c("inn", "gs", "qs", "cg", "w", "l", "s", "bs", "k",
+            "bbi", "ha", "era", "whip")
+    )
+  }
+
+  #drop unwanted columns
+  df <- df %>%
+    dplyr::select(-player, -fpts)
+
+  df
+}
