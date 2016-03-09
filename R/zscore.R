@@ -45,11 +45,12 @@ zscore <- function(
   }
 
   #sum
+  zscore_cols <- zscored[names(zscored) != 'mlbid']
   zscored[['zscore_sum']] <- rowSums(
-    zscored[names(zscored) != 'mlbid'] %>% dplyr::bind_rows()
+    dplyr::rbind_list(zscore_cols)
   )
 
-  out <- dplyr::bind_rows(zscored)
+  out <- dplyr::rbind_list(zscored)
 
   if (limit_player_pool) {
 
@@ -60,7 +61,7 @@ zscore <- function(
     pool_limit <- ceiling(total_drafted * roster_pct)
 
     #cut by the top N
-    zscored <- dplyr::bind_rows(zscored) %>%
+    zscored <- dplyr::rbind_list(zscored) %>%
       dplyr::mutate(
         ranking = rank(desc(zscore_sum), ties.method = 'first')
       )
@@ -104,10 +105,10 @@ zscore <- function(
 
     #sum
     zscored_limit[['zscore_sum']] <- rowSums(
-      zscored_limit[names(zscored_limit) != 'mlbid'] %>% dplyr::bind_rows()
+      zscored_limit[names(zscored_limit) != 'mlbid'] %>% dplyr::rbind_list()
     )
 
-    out <- dplyr::bind_rows(zscored_limit)
+    out <- dplyr::rbind_list(zscored_limit)
   }
 
   return(out)
