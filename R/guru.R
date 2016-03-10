@@ -14,7 +14,6 @@ read_raw_guru <- function(year) {
   url <- urls[[as.character(year)]]
 
   tname <- tempfile(pattern = 'guru', tmpdir = tempdir(), fileext = '.xls')
-  tdir <- tempdir()
   downloader::download(url, destfile = tname, mode = 'wb')
   guru_p <- readxl::read_excel(path = tname, sheet = 3, skip = 1)
   guru_h <- readxl::read_excel(path = tname, sheet = 4, skip = 1)
