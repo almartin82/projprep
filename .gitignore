@@ -21,4 +21,5 @@ vignettes/*.pdf
 
 *.DS_Store
 *.gsheet
-paid_projections/*
+paid_projections/
+paid_projections/pod_projections.xlsx
