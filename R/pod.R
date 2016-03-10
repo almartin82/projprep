@@ -73,3 +73,38 @@ clean_raw_pod <- function(df, hit_pitch) {
 
   df
 }
+
+
+pod_mlbid_match <- function(pod_df, mlbid = NA) {
+  #just a stub for now
+  pod_df$mlbid <- c(1:nrow(pod_df))
+
+  pod_df
+}
+
+
+
+#' Get pod projections
+#'
+#' @description workhorse function.  reads the raw pod excel file,
+#' cleans up headers, returns list of projection data frames ready for
+#' projection_prep function.
+#' @inheritParams read_raw_steamer
+#' @return list of named projection data frames.
+#' @export
+
+get_pod <- function(path_to_file) {
+
+  raw <- read_raw_pod(path_to_file)
+  clean_h <- clean_raw_pod(raw$h, 'h')
+  clean_p <- clean_raw_pod(raw$p, 'p')
+
+  clean_h <- pod_mlbid_match(clean_h)
+  clean_p <- pod_mlbid_match(clean_p)
+
+  clean_h$projection_name <- 'pod'
+  clean_p$projection_name <- 'pod'
+
+  list('h' = clean_h, 'p' = clean_p)
+}
+
