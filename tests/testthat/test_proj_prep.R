@@ -51,7 +51,6 @@ test_that('proj_prep object with cbs projections', {
   expect_is(pp$special_replacement, 'list')
   expect_is(pp$h_final, 'data.frame')
   expect_is(pp$p_final, 'data.frame')
-
 })
 
 
@@ -68,3 +67,20 @@ test_that('proj_prep object with guru projections', {
   expect_is(pp$p_final, 'data.frame')
 })
 
+
+test_that('proj_prep object with pod projections', {
+
+  spec_file <- file.path('paid_projections', 'pod_projections.xlsx')
+  file_loc <- file.path(getwd(), spec_file)
+  file_loc <- gsub('tests/testthat/', '', file_loc, fixed = TRUE)
+
+  pod_ex <- get_pod(file_loc)
+  pp <- proj_prep(pod_ex)
+
+  expect_is(pp$h, 'data.frame')
+  expect_is(pp$p, 'data.frame')
+  expect_is(pp$replacement, 'list')
+  expect_is(pp$special_replacement, 'list')
+  expect_is(pp$h_final, 'data.frame')
+  expect_is(pp$p_final, 'data.frame')
+})

@@ -14,7 +14,6 @@ read_raw_guru <- function(year) {
   url <- urls[[as.character(year)]]
 
   tname <- tempfile(pattern = 'guru', tmpdir = tempdir(), fileext = '.xls')
-  tdir <- tempdir()
   downloader::download(url, destfile = tname, mode = 'wb')
   guru_p <- readxl::read_excel(path = tname, sheet = 3, skip = 1)
   guru_h <- readxl::read_excel(path = tname, sheet = 4, skip = 1)
@@ -22,6 +21,15 @@ read_raw_guru <- function(year) {
   list('h' = guru_h, 'p' = guru_p)
 }
 
+
+#' Cleans up a steamer projection file.
+#'
+#' @description names, consistent stat names, etc.
+#' @param df raw steamer df.  output of read_raw_steamer.
+#' @param hit_pitch c('h', 'p')
+#'
+#' @return a data frame with consistent variable names
+#' @export
 
 clean_raw_guru <- function(df, hit_pitch) {
 
