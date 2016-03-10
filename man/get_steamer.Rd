@@ -10,10 +10,11 @@ get_steamer(year)
 \item{year}{desired year.  valid values: 2016}
 }
 \value{
-a projection prep object.
+list of named projection data frames.
 }
 \description{
-workhorse function.  reads the raw steamer data file,
-cleans up headers, returns projection prep object
+workhorse function.  reads the raw steamer data,
+cleans up headers, returns list of projection data frames ready for
+projection_prep function.
 }
 

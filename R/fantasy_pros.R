@@ -118,8 +118,9 @@ fantasy_pros_mlbid_match <- function(fantasy_pros_df, mlbid = NA) {
 
 #' Get fantasy pros
 #'
-#' @description workhorse function.  reads the raw fantasy pros data file,
-#' cleans up headers, returns projection prep object
+#' @description workhorse function.  reads the raw fantasy pros dat,
+#' cleans up headers, returns list of projection data frames ready for
+#' projection_prep function.
 #' @param year
 #'
 #' @return projection prep object

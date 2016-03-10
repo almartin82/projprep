@@ -145,10 +145,10 @@ cbs_mlbid_match <- function(cbs_df, mlbid = NA) {
 #' Get cbs
 #'
 #' @description workhorse function.  reads the raw cbs data file,
-#' cleans up headers, returns projection prep object
-#' @param year
-#'
-#' @return projection prep object
+#' cleans up headers, returns list of projection data frames ready for
+#' projection_prep function.
+#' @inheritParams read_raw_steamer
+#' @return list of named projection data frames.
 #' @export
 
 get_cbs <- function(year) {
