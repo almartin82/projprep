@@ -31,6 +31,7 @@ clean_raw_pod <- function(df, hit_pitch) {
   names(df) <- tolower(names(df))
   df$firstname <- split_firstlast(df$player)$first
   df$lastname <- split_firstlast(df$player)$last
+  df$fullname <- paste(df$firstname, df$lastname)
 
   #fix stat names
   if (hit_pitch == 'h') {
@@ -107,4 +108,3 @@ get_pod <- function(path_to_file) {
 
   list('h' = clean_h, 'p' = clean_p)
 }
-
