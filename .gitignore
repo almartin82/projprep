@@ -21,3 +21,4 @@ vignettes/*.pdf
 
 *.DS_Store
 *.gsheet
+paid_projections/*

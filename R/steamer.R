@@ -106,10 +106,11 @@ steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
 
 #' Get steamer projections
 #'
-#' @description workhorse function.  reads the raw steamer data file,
-#' cleans up headers, returns projection prep object
+#' @description workhorse function.  reads the raw steamer data,
+#' cleans up headers, returns list of projection data frames ready for
+#' projection_prep function.
 #' @inheritParams read_raw_steamer
-#' @return a projection prep object.
+#' @return list of named projection data frames.
 #' @export
 
 get_steamer <- function(year) {

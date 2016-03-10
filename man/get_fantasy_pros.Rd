@@ -13,7 +13,8 @@ get_fantasy_pros(year)
 projection prep object
 }
 \description{
-workhorse function.  reads the raw fantasy pros data file,
-cleans up headers, returns projection prep object
+workhorse function.  reads the raw fantasy pros dat,
+cleans up headers, returns list of projection data frames ready for
+projection_prep function.
 }
 
