@@ -22,6 +22,15 @@ read_raw_guru <- function(year) {
 }
 
 
+#' Cleans up a steamer projection file.
+#'
+#' @description names, consistent stat names, etc.
+#' @param df raw steamer df.  output of read_raw_steamer.
+#' @param hit_pitch c('h', 'p')
+#'
+#' @return a data frame with consistent variable names
+#' @export
+
 clean_raw_guru <- function(df, hit_pitch) {
 
   #names
