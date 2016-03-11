@@ -88,6 +88,10 @@ proj_prep.default <- function(
   proj_list[['p_final']] <- p_plus_replacement
   p_with_prices <- calculate_prices(proj_list, 'p')
 
+  #additional data
+  h_with_prices$hit_pitch <- 'h'
+  p_with_prices$hit_pitch <- 'p'
+
   #add final df to lists
   proj_list[['h_final']] <- h_with_prices
   proj_list[['p_final']] <- p_with_prices
