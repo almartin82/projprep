@@ -1,11 +1,12 @@
-Package: projections
+Package: projprep
 Type: Package
 Title: Preps Fantasy Baseball Projection System Files
 Version: 0.2
 Date: 2016-02-04
 Authors@R: person("Andrew", "Martin", role = c("aut","cre"), email = "almartin@gmail.com")
-Description: Reads in projection systems, extracts key stats, calculates
-    replacement level, converts projections to standard scores
+Description: Reads in fantasy baseball projection systems,
+    extracts key stats, calculates replacement level,
+    converts projections to standard scores, calculates auction prices.
 License: file LICENSE
 LazyData: TRUE
 Depends:

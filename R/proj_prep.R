@@ -84,10 +84,12 @@ proj_prep.default <- function(
   #express as prices
   proj_list[['h_final']] <- h_plus_replacement
   h_with_prices <- calculate_prices(proj_list, 'h')
-  proj_list[['h_final']] <- h_with_prices
 
   proj_list[['p_final']] <- p_plus_replacement
   p_with_prices <- calculate_prices(proj_list, 'p')
+
+  #add final df to lists
+  proj_list[['h_final']] <- h_with_prices
   proj_list[['p_final']] <- p_with_prices
 
   #return

@@ -7,7 +7,6 @@ ex <- read_raw_pod(file_loc)
 
 
 test_that('read_raw_pod correctly reads pod excel file', {
-
   expect_is(ex, 'list')
 })
 

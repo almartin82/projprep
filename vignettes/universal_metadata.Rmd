@@ -1,0 +1,8 @@
+---
+title: "universal metadata"
+output: html_document
+---
+
+We need a list of players names, dobs, and mlbids for matching.
+
+We also need to have a general player lookup for optimal_auction that can be used to select players.  That should be a superset, containing every player in all the projection systems (and arguably all the prospects who might ever be drafted?)
