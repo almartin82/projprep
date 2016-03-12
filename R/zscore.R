@@ -100,9 +100,9 @@ zscore <- function(
 
       stat <- this_stats[i]
       stat_dir <- ifelse(stat_direction[i], 1, -1)
+      stat_rate <- is_rate[i]
 
-      top_n_stat <- top_n %>% magrittr::extract(stat) %>%
-        unname() %>% unlist()
+      top_n$stat <- top_n %>% magrittr::extract(stat)
 
       for_zscoring <- data.frame(
         mlbid = this_df$mlbid,
@@ -112,11 +112,15 @@ zscore <- function(
 
       #convert rate to count
       if (stat_rate & hit_pitch == 'h') {
+        top_n$stat <- top_n$ab * top_n$stat
         for_zscoring$stat <- this_df$ab * for_zscoring$stat
       }
       if (stat_rate & hit_pitch == 'p') {
+        top_n$stat <- top_n$ip * top_n$stat
         for_zscoring$stat <- this_df$ip * for_zscoring$stat
       }
+
+      top_n_stat <- top_n$stat %>% unname() %>% unlist()
 
       stat_zscored <- for_zscoring %>%
         dplyr::mutate(
