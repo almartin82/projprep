@@ -31,7 +31,8 @@ proj_prep.default <- function(
             paste(user_settings$p, collapse = ', ')
     ),
     '\n',
-    'to change any of these settings, run `set_defaults()`.\n'
+    'TODO: to change any of these settings, run `set_defaults()`.',
+    '\n'
   )
   message(initial_message)
 
