@@ -1,7 +1,7 @@
 context('steamer')
 
 test_that('steamer reads raw data', {
-  s <- read_raw_steamer(2016)
+  s <- read_raw_razzball_steamer(2016)
 
   expect_is(s, 'list')
   expect_is(s$h, 'data.frame')
@@ -12,8 +12,8 @@ test_that('steamer reads raw data', {
 })
 
 
-test_that('get_steamer reads and cleans raw data', {
-  s <- get_steamer(2016)
+test_that('get_razzball_steamer reads and cleans raw data', {
+  s <- get_razzball_steamer(2016)
 
   expect_is(s, 'list')
   expect_is(s$h, 'data.frame')

@@ -1,6 +1,6 @@
 #' Scrape Fantasy Pros Projeections
 #'
-#' @inheritParams scrape_steamer
+#' @inheritParams scrape_razzball_steamer
 #' @return data frame with fantasy pros projection data
 #'
 #' @export
@@ -20,7 +20,7 @@ scrape_fantasy_pros <- function(url) {
 
 #' Read raw fantasy pros projections for a given year
 #'
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #'
 #' @return named list of data frames
 #' @export

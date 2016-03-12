@@ -2,7 +2,7 @@ context('proj_prep')
 
 test_that('proj_prep object with steamer projections', {
 
-  s <- get_steamer(2016)
+  s <- get_razzball_steamer(2016)
   pp <- proj_prep(s)
 
   expect_is(pp$h, 'data.frame')
@@ -27,7 +27,7 @@ test_that('proj_prep object with fantasypros projections', {
 
 test_that('proj_prep object with steamer projections', {
 
-  s <- get_steamer(2016)
+  s <- get_razzball_steamer(2016)
   pp <- proj_prep(s)
 
   expect_is(pp$h, 'data.frame')

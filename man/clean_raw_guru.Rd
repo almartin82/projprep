@@ -2,12 +2,12 @@
 % Please edit documentation in R/guru.R
 \name{clean_raw_guru}
 \alias{clean_raw_guru}
-\title{Cleans up a steamer projection file.}
+\title{Cleans up a guru projection file.}
 \usage{
 clean_raw_guru(df, hit_pitch)
 }
 \arguments{
-\item{df}{raw steamer df.  output of read_raw_steamer.}
+\item{df}{raw guru df.  output of read_raw_guru}
 
 \item{hit_pitch}{c('h', 'p')}
 }

@@ -5,7 +5,7 @@
 #' @return data frame with steamer projection data
 #' @export
 
-scrape_steamer <- function(url) {
+scrape_razzball_steamer <- function(url) {
 
   h <- read_html(url)
 
@@ -29,15 +29,15 @@ scrape_steamer <- function(url) {
 #' @return named list of data frames
 #' @export
 
-read_raw_steamer <- function(year) {
+read_raw_razzball_steamer <- function(year) {
 
   urls <- list(
     'yr_2016_h' = 'http://razzball.com/steamer-hitter-projections/',
     'yr_2016_p' = 'http://razzball.com/steamer-pitcher-projections/'
   )
 
-  h <- scrape_steamer(urls[[paste('yr', year, 'h', sep = '_')]])
-  p <- scrape_steamer(urls[[paste('yr', year, 'p', sep = '_')]])
+  h <- scrape_razzball_steamer(urls[[paste('yr', year, 'h', sep = '_')]])
+  p <- scrape_razzball_steamer(urls[[paste('yr', year, 'p', sep = '_')]])
 
   list('h' = h, 'p' = p)
 }
@@ -46,13 +46,13 @@ read_raw_steamer <- function(year) {
 #' Cleans up a steamer projection file.
 #'
 #' @description names, consistent stat names, etc.
-#' @param df raw steamer df.  output of read_raw_steamer.
+#' @param df raw steamer df.  output of read_raw_razzball_steamer.
 #' @param hit_pitch c('h', 'p')
 #'
 #' @return a data frame with consistent variable names
 #' @export
 
-clean_raw_steamer <- function(df, hit_pitch) {
+clean_raw_razzball_steamer <- function(df, hit_pitch) {
 
   #clean up player names
   names(df)[names(df) == 'Name'] <- 'FullName'
@@ -109,15 +109,15 @@ steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw steamer data,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #' @return list of named projection data frames.
 #' @export
 
-get_steamer <- function(year) {
+get_razzball_steamer <- function(year) {
 
-  raw <- read_raw_steamer(year)
-  clean_h <- clean_raw_steamer(raw$h, 'h')
-  clean_p <- clean_raw_steamer(raw$p, 'p')
+  raw <- read_raw_razzball_steamer(year)
+  clean_h <- clean_raw_razzball_steamer(raw$h, 'h')
+  clean_p <- clean_raw_razzball_steamer(raw$p, 'p')
 
   clean_h <- steamer_mlbid_match(clean_h)
   clean_p <- steamer_mlbid_match(clean_p)

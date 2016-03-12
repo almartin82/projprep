@@ -19,7 +19,7 @@ read_raw_pod <- function(path_to_file) {
 #' Cleans up a pod projection file.
 #'
 #' @description names, consistent stat names, etc.
-#' @param df raw steamer df.  output of read_raw_pod
+#' @param df raw pod df.  output of read_raw_pod
 #' @param hit_pitch c('h', 'p')
 #'
 #' @return a data frame with consistent variable names
@@ -90,7 +90,7 @@ pod_mlbid_match <- function(pod_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw pod excel file,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #' @return list of named projection data frames.
 #' @export
 

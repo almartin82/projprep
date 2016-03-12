@@ -7,7 +7,7 @@
 clean_raw_pod(df, hit_pitch)
 }
 \arguments{
-\item{df}{raw steamer df.  output of read_raw_pod}
+\item{df}{raw pod df.  output of read_raw_pod}
 
 \item{hit_pitch}{c('h', 'p')}
 }

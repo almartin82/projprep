@@ -2,7 +2,7 @@ context('zscore')
 
 test_that('zscore works with positional / non-positional groups', {
 
-  s <- get_steamer(2016)
+  s <- get_razzball_steamer(2016)
   s_filtered <- limit_proj_vars(s)
 
   #zscore

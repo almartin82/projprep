@@ -1,6 +1,6 @@
 #' Scrape CBS Projeections
 #'
-#' @inheritParams scrape_steamer
+#' @inheritParams scrape_razzball_steamer
 #' @param pos position name
 #' @return data frame with fantasy pros projection data
 #'
@@ -32,7 +32,7 @@ scrape_cbs <- function(url, pos) {
 
 #' Read raw cbs projections for a given year
 #'
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #'
 #' @return named list of data frames
 #' @export
@@ -147,7 +147,7 @@ cbs_mlbid_match <- function(cbs_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw cbs data file,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #' @return list of named projection data frames.
 #' @export
 

@@ -1,6 +1,6 @@
 #' Read raw guru projections for a given year
 #'
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #'
 #' @return named list of data frames
 #' @export
@@ -22,10 +22,10 @@ read_raw_guru <- function(year) {
 }
 
 
-#' Cleans up a steamer projection file.
+#' Cleans up a guru projection file.
 #'
 #' @description names, consistent stat names, etc.
-#' @param df raw steamer df.  output of read_raw_steamer.
+#' @param df raw guru df.  output of read_raw_guru
 #' @param hit_pitch c('h', 'p')
 #'
 #' @return a data frame with consistent variable names
@@ -122,7 +122,7 @@ guru_mlbid_match <- function(guru_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw guru excel file,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_steamer
+#' @inheritParams read_raw_razzball_steamer
 #' @return list of named projection data frames.
 #' @export
 
