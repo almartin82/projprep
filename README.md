@@ -1,5 +1,5 @@
 # projprep
-**projprep** is a R package that helps read, clean up, and convert baseball projection data into prices.
+**projprep** is a R package that helps read, clean up, and convert baseball projection data into auction prices.
 
 ## installation
 projprep is written in R.
