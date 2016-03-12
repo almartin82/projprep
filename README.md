@@ -8,7 +8,7 @@ If you're new to R, start by installing:
 * [R](https://cran.r-project.org/)
 * [RStudio](https://www.rstudio.com/products/RStudio/#Desktop)
 
-`projprep` is *_not_* available on [cran](https://cran.r-project.org/), the home of R packages.  That means you'll need to install it with `devtools`:
+`projprep` is *_not_* available on [CRAN](https://cran.r-project.org/), the home of R packages.  That means you'll need to install it with `devtools`:
 
 ```
 install.packages('devtools')

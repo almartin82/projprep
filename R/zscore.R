@@ -43,9 +43,12 @@ zscore <- function(
       stringsAsFactors = FALSE
     )
 
-    #stub for converting rate to count
-    if(stat_rate) {
-      #figure out IP vs AB/PA...
+    #convert rate to count
+    if (stat_rate & hit_pitch == 'h') {
+      for_zscoring$stat <- this_df$ab * for_zscoring$stat
+    }
+    if (stat_rate & hit_pitch == 'p') {
+      for_zscoring$stat <- this_df$ip * for_zscoring$stat
     }
 
     zscore_df <- for_zscoring %>%
@@ -106,6 +109,14 @@ zscore <- function(
         stat = this_df %>% magrittr::extract(stat) %>% unname(),
         stringsAsFactors = FALSE
       )
+
+      #convert rate to count
+      if (stat_rate & hit_pitch == 'h') {
+        for_zscoring$stat <- this_df$ab * for_zscoring$stat
+      }
+      if (stat_rate & hit_pitch == 'p') {
+        for_zscoring$stat <- this_df$ip * for_zscoring$stat
+      }
 
       stat_zscored <- for_zscoring %>%
         dplyr::mutate(
