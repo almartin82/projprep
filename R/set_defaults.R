@@ -1,6 +1,13 @@
+#' stock defaults
+#'
+#' @description the out-of-the-box stat/league/auction defaults.
+#' unsurprisingly, these currently match the league settings for
+#' almartin82's league.
+#' @return 'OK' if settings were saved.
+#' @export
 
+stock_defaults <- function() {
 
-set_defaults <- function() {
   h <- c('r', 'rbi', 'sb', 'tb', 'obp')
   h_direction <- c(1, 1, 1, 1, 1)
   p <- c('w', 'sv', 'k', 'era', 'whip')
@@ -43,4 +50,15 @@ set_defaults <- function() {
     'pct_budget_h' = pct_budget_h
   )
   save(user_settings, file = file.path('data', 'user_settings.rda'))
+
+  'OK'
+}
+
+
+set_defaults <- function() {
+
+  message(
+    paste('I am just a stub!  the ability to edit the default settings',
+          'is on the roadmap for projprep 0.3')
+  )
 }
