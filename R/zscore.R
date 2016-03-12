@@ -17,7 +17,7 @@ zscore <- function(
   proj_list,
   hit_pitch,
   stat_direction = user_settings %>%
-    magrittr::extract2(paste0(hit_pitch, '_direction')),
+    magrittr::extract2(paste0(hit_pitch, '_higher_better')),
   is_rate = user_settings %>%
     magrittr::extract2(paste0(hit_pitch, '_rate')),
   limit_player_pool = TRUE
@@ -32,7 +32,8 @@ zscore <- function(
   for (i in seq_along(this_stats)) {
 
     stat <- this_stats[i]
-    stat_dir <- stat_direction[i]
+    stat_dir <- ifelse(stat_direction[i], 1, -1)
+    stat_rate <- is_rate[i]
 
     for_zscoring <- data.frame(
       mlbid = this_df$mlbid,
@@ -41,6 +42,11 @@ zscore <- function(
         unname(),
       stringsAsFactors = FALSE
     )
+
+    #stub for converting rate to count
+    if(stat_rate) {
+      #figure out IP vs AB/PA...
+    }
 
     zscore_df <- for_zscoring %>%
       dplyr::mutate(
@@ -90,7 +96,7 @@ zscore <- function(
     for (i in seq_along(this_stats)) {
 
       stat <- this_stats[i]
-      stat_dir <- stat_direction[i]
+      stat_dir <- ifelse(stat_direction[i], 1, -1)
 
       top_n_stat <- top_n %>% magrittr::extract(stat) %>%
         unname() %>% unlist()
