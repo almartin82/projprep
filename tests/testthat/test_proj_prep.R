@@ -1,6 +1,6 @@
 context('proj_prep')
 
-test_that('proj_prep object with steamer projections', {
+test_that('proj_prep object with razzball steamer projections', {
 
   s <- get_razzball_steamer(2016)
   pp <- proj_prep(s)

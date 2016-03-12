@@ -2,6 +2,11 @@
 #'
 #' @param proj_list named ('h', 'p') list of data frames, ie output of get_steamer
 #' @param hit_pitch 'h' or 'p'
+#' @param stat_direction vector that flags if the stat is
+#' reverse-framed (lower = better).  default behavior is
+#' to read from user_settings.
+#' @param is_rate vector that flags if the state is a rate stat.
+#' default behavior is to read from user_settings.
 #' @param limit_player_pool zscores relative to all players, or relative size of drafted
 #' player pool?
 #'
@@ -11,13 +16,15 @@
 zscore <- function(
   proj_list,
   hit_pitch,
+  stat_direction = user_settings %>%
+    magrittr::extract2(paste0(hit_pitch, '_higher_better')),
+  is_rate = user_settings %>%
+    magrittr::extract2(paste0(hit_pitch, '_rate')),
   limit_player_pool = TRUE
   ) {
 
   this_df <- proj_list %>% magrittr::extract2(hit_pitch)
   this_stats <- user_settings %>% magrittr::extract2(hit_pitch)
-  this_direction <- user_settings %>%
-    magrittr::extract2(paste0(hit_pitch, '_direction'))
 
   zscored <- list()
   zscored[['mlbid']] <- this_df$mlbid
@@ -25,7 +32,8 @@ zscore <- function(
   for (i in seq_along(this_stats)) {
 
     stat <- this_stats[i]
-    stat_dir <- this_direction[i]
+    stat_dir <- ifelse(stat_direction[i], 1, -1)
+    stat_rate <- is_rate[i]
 
     for_zscoring <- data.frame(
       mlbid = this_df$mlbid,
@@ -34,6 +42,14 @@ zscore <- function(
         unname(),
       stringsAsFactors = FALSE
     )
+
+    #convert rate to count
+    if (stat_rate & hit_pitch == 'h') {
+      for_zscoring$stat <- this_df$ab * for_zscoring$stat
+    }
+    if (stat_rate & hit_pitch == 'p') {
+      for_zscoring$stat <- this_df$ip * for_zscoring$stat
+    }
 
     zscore_df <- for_zscoring %>%
       dplyr::mutate(
@@ -83,7 +99,7 @@ zscore <- function(
     for (i in seq_along(this_stats)) {
 
       stat <- this_stats[i]
-      stat_dir <- this_direction[i]
+      stat_dir <- ifelse(stat_direction[i], 1, -1)
 
       top_n_stat <- top_n %>% magrittr::extract(stat) %>%
         unname() %>% unlist()
@@ -93,6 +109,14 @@ zscore <- function(
         stat = this_df %>% magrittr::extract(stat) %>% unname(),
         stringsAsFactors = FALSE
       )
+
+      #convert rate to count
+      if (stat_rate & hit_pitch == 'h') {
+        for_zscoring$stat <- this_df$ab * for_zscoring$stat
+      }
+      if (stat_rate & hit_pitch == 'p') {
+        for_zscoring$stat <- this_df$ip * for_zscoring$stat
+      }
 
       stat_zscored <- for_zscoring %>%
         dplyr::mutate(

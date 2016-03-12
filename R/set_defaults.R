@@ -9,9 +9,11 @@
 stock_defaults <- function() {
 
   h <- c('r', 'rbi', 'sb', 'tb', 'obp')
-  h_direction <- c(1, 1, 1, 1, 1)
+  h_higher_better <- c(TRUE, TRUE, TRUE, TRUE, TRUE)
+  h_rate <- c(FALSE, FALSE, FALSE, FALSE, TRUE)
   p <- c('w', 'sv', 'k', 'era', 'whip')
-  p_direction <- c(1, 1, 1, -1, -1)
+  p_higher_better <- c(TRUE, TRUE, TRUE, FALSE, FALSE)
+  p_rate <- c(FALSE, FALSE, FALSE, TRUE, TRUE)
 
   league_size <- 12
   positions <- list(
@@ -38,7 +40,8 @@ stock_defaults <- function() {
   user_settings <- list(
     site = 'yahoo',
     'h' = h, 'p' = p,
-    'h_direction' = h_direction, 'p_direction' = p_direction,
+    'h_rate' = h_rate, 'p_rate' = p_rate,
+    'h_higher_better' = h_higher_better, 'p_higher_better' = p_higher_better,
     'league_size' = league_size,
     'positions' = positions,
     'special_positions' = special_positions,
