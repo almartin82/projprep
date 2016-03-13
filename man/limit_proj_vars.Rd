@@ -7,7 +7,8 @@
 limit_proj_vars(proj_list)
 }
 \arguments{
-\item{proj_list}{named ('h', 'p') list of data frames, ie output of get_steamer}
+\item{proj_list}{named ('h', 'p') list of data frames, ie output
+of get_steamer().}
 }
 \value{
 list of data frames with relevant variables selected

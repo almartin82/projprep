@@ -2,7 +2,9 @@
 #'
 #' @description given raw projection data, creates a proj_prep object
 #'
-#' @param proj_list named ('h', 'p') list of data frames, ie output of get_steamer
+#' @param proj_list named ('h', 'p') list of data frames, ie output
+#' of get_steamer().
+#' @param ... additional arguments
 #' @examples
 #'\dontrun{
 #' cdf_mv <- mapvizieR(ex_CombinedAssessmentResults,

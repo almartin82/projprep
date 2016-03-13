@@ -90,7 +90,10 @@ pod_mlbid_match <- function(pod_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw pod excel file,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_razzball_steamer
+#'
+#' @param path_to_file path to the pod excel file you downloaded
+#' (pod projections are paid).
+#'
 #' @return list of named projection data frames.
 #' @export
 

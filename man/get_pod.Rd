@@ -6,6 +6,10 @@
 \usage{
 get_pod(path_to_file)
 }
+\arguments{
+\item{path_to_file}{path to the pod excel file you downloaded
+(pod projections are paid).}
+}
 \value{
 list of named projection data frames.
 }

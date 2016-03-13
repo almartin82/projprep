@@ -7,7 +7,10 @@
 proj_prep(proj_list, ...)
 }
 \arguments{
-\item{proj_list}{named ('h', 'p') list of data frames, ie output of get_steamer}
+\item{proj_list}{named ('h', 'p') list of data frames, ie output
+of get_steamer().}
+
+\item{...}{additional arguments}
 }
 \description{
 given raw projection data, creates a proj_prep object

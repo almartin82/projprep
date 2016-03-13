@@ -121,7 +121,7 @@ fantasy_pros_mlbid_match <- function(fantasy_pros_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw fantasy pros dat,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @param year
+#' @inheritParams read_raw_razzball_steamer
 #'
 #' @return projection prep object
 #' @export

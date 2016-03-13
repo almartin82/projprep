@@ -7,7 +7,7 @@
 get_fantasy_pros(year)
 }
 \arguments{
-\item{year}{}
+\item{year}{desired year.  valid values: 2016}
 }
 \value{
 projection prep object
