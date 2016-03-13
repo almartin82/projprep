@@ -37,3 +37,11 @@ Then save the id map as an .rda file so it can be used by the package:
 save(id_map, file = file.path('data', 'id_map.rda'))
 
 ```
+
+errata: how to quickly make a minimal documentation file!
+```{r, eval = FALSE}
+
+paste0('\\item{', names(id_map), '}', '{', names(id_map), '}') -> foo
+for (i in foo) {cat('#\' ');cat(i);cat('\n')}
+
+```
