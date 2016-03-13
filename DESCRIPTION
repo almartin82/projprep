@@ -11,6 +11,7 @@ License: file LICENSE
 LazyData: TRUE
 Depends:
     dplyr,
+    googlesheets,
     httr,
     magrittr,
     rvest,

@@ -6,3 +6,35 @@ output: html_document
 We need a list of players names, dobs, and mlbids for matching.
 
 We also need to have a general player lookup for optimal_auction that can be used to select players.  That should be a superset, containing every player in all the projection systems (and arguably all the prospects who might ever be drafted?)
+
+First read in Tanner's amazing ID map:
+
+
+```{r}
+
+id_map_url <- 'https://docs.google.com/spreadsheets/d/1JgczhD5VDQ1EiXqVG-blttZcVwbZd5_Ne_mefUGwJnk'
+
+#worked
+id_map <- id_map_url %>%
+  googlesheets::gs_url() %>%
+  googlesheets::gs_read_listfeed()
+
+head(id_map)
+
+```
+
+Presumably we'll manually add in some names here:
+
+```{r}
+
+#errata, manual additions...
+
+```
+
+Then save the id map as an .rda file so it can be used by the package:
+
+```{r}
+
+save(id_map, file = file.path('data', 'id_map.rda'))
+
+```

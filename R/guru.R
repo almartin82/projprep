@@ -102,7 +102,6 @@ clean_raw_guru <- function(df, hit_pitch) {
     df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
   }
 
-
   df
 }
 
