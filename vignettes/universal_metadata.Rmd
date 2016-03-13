@@ -22,11 +22,25 @@ head(id_map)
 
 ```
 
+For all of the name columns, we want to trim whitespace:
+```{r}
+
+name_cols <- c(
+  "playername", "fangraphsname", "mlbname", "cbsname", "nfbcname", 
+  "espnname", "kfflname", "yahooname", "mstrbllname", "fantprosname",
+  "fanduelname", "draftkingsname")
+
+for (i in name_cols) {
+  id_map[, i] <- lapply(id_map[, i], trim_whitespace)
+}
+
+```
+
 Presumably we'll manually add in some names here:
 
 ```{r}
 
-#errata, manual additions...
+#manual additions...
 
 ```
 

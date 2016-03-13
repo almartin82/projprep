@@ -56,6 +56,8 @@ clean_raw_razzball_steamer <- function(df, hit_pitch) {
 
   #clean up player names
   names(df)[names(df) == 'Name'] <- 'FullName'
+  #no idea what these weird characters are
+  df$FullName <- gsub('[/pla', '', df$FullName, fixed = TRUE)
   df$FirstName <- split_firstlast(df$FullName)$first
   df$LastName <- split_firstlast(df$FullName)$last
 
@@ -96,7 +98,8 @@ clean_raw_razzball_steamer <- function(df, hit_pitch) {
 
 
 
-steamer_mlbid_match <- function(steamer_df, mlbid = NA) {
+steamer_mlbid_match <- function(steamer_df) {
+
   #just a stub for now
   steamer_df$mlbid <- c(1:nrow(steamer_df))
 

@@ -22,3 +22,16 @@ split_firstlast <- function(x) {
 #' @export
 
 trim_whitespace <- function (x) gsub("^\\s+|\\s+$", "", x)
+
+
+#' peek
+#'
+#' @param df a data frame
+#'
+#' @return just the head of the data frame, all columns visible
+#' @export
+
+peek <- function(df) {
+  df %>% head() %>% as.data.frame(stringsAsFactors = FALSE)
+}
+

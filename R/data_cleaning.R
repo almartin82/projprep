@@ -123,3 +123,36 @@ force_numeric <- function(df, cols) {
 
   df
 }
+
+
+#' clean quotes from a string
+#'
+#' @param x character vector
+#'
+#' @return character vector w/o quotes
+#' @export
+
+clean_quotes <- function(x) {
+
+  #see: https://www.cl.cam.ac.uk/~mgk25/ucs/quotes.html
+  x <- gsub("\u0022", '', x)
+  x <- gsub("\u0027", '', x)
+  x <- gsub("\u0060", '', x)
+  x <- gsub("\u00B4", '', x)
+  x <- gsub("\u2018", '', x)
+  x <- gsub("\u2019", '', x)
+  x <- gsub("\u201C", '', x)
+  x <- gsub("\u201D", '', x)
+
+  #dashes, barf
+  x <- gsub("\u2010", '', x)
+  x <- gsub("\u2011", '', x)
+  x <- gsub("\u2012", '', x)
+  x <- gsub("\u2013", '', x)
+  x <- gsub("\u2014", '', x)
+  x <- gsub("\u2015", '', x)
+  x <- gsub("\u2212", '', x)
+  x <- gsub("\u002d", '', x)
+
+  x
+}
