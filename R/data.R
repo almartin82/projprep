@@ -44,3 +44,19 @@
 #' }
 #' @source smartfantasybaseball.com
 "id_map"
+
+
+
+#' special_positions_map
+#'
+#' named list of 'special positions' (eg CI) with the corresponding
+#' regular positions (eg 1B, 3B)
+#'
+#' @format
+#' \describe{
+#' \item{CI}{corner infield}
+#' \item{MI}{middle infield}
+#' \item{Util}{utility}
+#' \item{P}{pitcher}
+#' }
+"special_positions_map"

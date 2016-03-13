@@ -17,5 +17,7 @@ Depends:
     rvest,
     yaml
 Suggests:
+    downloader,
+    readxl,
     testthat
 RoxygenNote: 5.0.1

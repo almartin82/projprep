@@ -70,11 +70,7 @@ test_that('proj_prep object with guru projections', {
 
 test_that('proj_prep object with pod projections', {
 
-  spec_file <- file.path('paid_projections', 'pod_projections.xlsx')
-  file_loc <- file.path(getwd(), spec_file)
-  file_loc <- gsub('tests/testthat/', '', file_loc, fixed = TRUE)
-
-  pod_ex <- get_pod(file_loc)
+  pod_ex <- get_pod(pod_file_loc)
   pp <- proj_prep(pod_ex)
 
   expect_is(pp$h, 'data.frame')

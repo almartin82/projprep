@@ -76,3 +76,7 @@ produces
 * [marcel] (_can't find link to 2016 projections_)
 * [cairo] (_can't find link to 2016 projections_)
 * [pecota] (http://www.baseballprospectus.com/fantasy/extras/splash_page.php)
+
+# Code of conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
