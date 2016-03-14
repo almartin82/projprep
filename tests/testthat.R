@@ -1,4 +1,4 @@
 library(testthat)
-library(projections)
+library(projprep)
 
-test_check("projections")
+test_check("projprep")

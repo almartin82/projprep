@@ -11,6 +11,9 @@ replacement_to_df(pp_list, hit_pitch, special = FALSE)
 where this function gets called}
 
 \item{hit_pitch}{c('h', 'p')}
+
+\item{special}{regular positions (c, 1b, 2b) (FALSE) or
+special positions (TRUE)}
 }
 \value{
 data frame

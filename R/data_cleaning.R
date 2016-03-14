@@ -123,3 +123,81 @@ force_numeric <- function(df, cols) {
 
   df
 }
+
+
+#' clean quotes from a string
+#'
+#' @param x character vector
+#'
+#' @return character vector w/o quotes
+#' @export
+
+clean_quotes <- function(x) {
+
+  #see: https://www.cl.cam.ac.uk/~mgk25/ucs/quotes.html
+  x <- gsub("\u0022", '', x)
+  x <- gsub("\u0027", '', x)
+  x <- gsub("\u0060", '', x)
+  x <- gsub("\u00B4", '', x)
+  x <- gsub("\u2018", '', x)
+  x <- gsub("\u2019", '', x)
+  x <- gsub("\u201C", '', x)
+  x <- gsub("\u201D", '', x)
+
+  #dashes, barf
+  x <- gsub("\u2010", '', x)
+  x <- gsub("\u2011", '', x)
+  x <- gsub("\u2012", '', x)
+  x <- gsub("\u2013", '', x)
+  x <- gsub("\u2014", '', x)
+  x <- gsub("\u2015", '', x)
+  x <- gsub("\u2212", '', x)
+  x <- gsub("\u002d", '', x)
+
+  x
+}
+
+
+#' force h projection data unique
+#'
+#' @description some projection systems weirdly include multiple rows
+#' per player.  that wreaks havoc down the line.
+#' @param clean_df data frame that has been cleaned, eg output of
+#' clean_raw_razzball_steamer
+#'
+#' @return data frame, with one row per id
+#' @export
+
+force_h_unique <- function(clean_df) {
+
+  clean_df %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(mlbid) %>%
+    dplyr::mutate(
+      rn = rank(desc(ab), ties.method = 'first')
+    ) %>%
+    dplyr::filter(rn == 1) %>%
+    dplyr::select(-rn)
+}
+
+
+#' force p projection data unique
+#'
+#' @description some projection systems weirdly include multiple rows
+#' per player.  that wreaks havoc down the line.
+#' @inheritParams force_h_unique
+#'
+#' @return data frame, with one row per id
+#' @export
+
+force_p_unique <- function(clean_df) {
+
+  clean_df %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(mlbid) %>%
+    dplyr::mutate(
+      rn = rank(desc(ip), ties.method = 'first')
+    ) %>%
+    dplyr::filter(rn == 1) %>%
+    dplyr::select(-rn)
+}

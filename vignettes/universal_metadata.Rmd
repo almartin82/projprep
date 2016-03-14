@@ -6,3 +6,60 @@ output: html_document
 We need a list of players names, dobs, and mlbids for matching.
 
 We also need to have a general player lookup for optimal_auction that can be used to select players.  That should be a superset, containing every player in all the projection systems (and arguably all the prospects who might ever be drafted?)
+
+First read in [Tanner's](http://www.smartfantasybaseball.com/tools/) amazing ID map:
+
+```{r}
+
+id_map_url <- 'https://docs.google.com/spreadsheets/d/1JgczhD5VDQ1EiXqVG-blttZcVwbZd5_Ne_mefUGwJnk'
+
+#worked
+id_map <- id_map_url %>%
+  googlesheets::gs_url() %>%
+  googlesheets::gs_read_listfeed()
+
+head(id_map)
+
+```
+
+For all of the name columns, we want to trim whitespace:
+```{r}
+
+name_cols <- c(
+  "playername", "fangraphsname", "mlbname", "cbsname", "nfbcname", 
+  "espnname", "kfflname", "yahooname", "mstrbllname", "fantprosname",
+  "fanduelname", "draftkingsname")
+
+for (i in name_cols) {
+  id_map[, i] <- lapply(id_map[, i], trim_whitespace)
+}
+
+```
+
+Presumably we'll manually add in some names here:
+
+```{r}
+
+#manual additions...
+id_map[id_map$playername == 'Hyun-soo Kim', 'mlbid'] <- 547957
+id_map[id_map$playername == 'Socrates Brito', 'mlbid'] <- 593647
+id_map[id_map$playername == 'Tyler Goeddel', 'mlbid'] <- 595963
+#id_map[id_map$playername == 'Aledmys Diaz', 'mlbid'] <- 649557
+  
+```
+
+Then save the id map as an .rda file so it can be used by the package:
+
+```{r}
+
+save(id_map, file = file.path('data', 'id_map.rda'))
+
+```
+
+errata: how to quickly make a minimal documentation file!
+```{r, eval = FALSE}
+
+paste0('\\item{', names(id_map), '}', '{', names(id_map), '}') -> foo
+for (i in foo) {cat('#\' ');cat(i);cat('\n')}
+
+```

@@ -47,6 +47,8 @@ find_standard_replacement <- function(pp_list, hit_pitch) {
 #' @description turns the replacement list into a data frame to assist
 #' in calculating replacement level
 #' @inheritParams find_standard_replacement
+#' @param special regular positions (c, 1b, 2b) (FALSE) or
+#' special positions (TRUE)
 #'
 #' @return data frame
 #' @export

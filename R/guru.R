@@ -102,19 +102,8 @@ clean_raw_guru <- function(df, hit_pitch) {
     df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
   }
 
-
   df
 }
-
-
-
-guru_mlbid_match <- function(guru_df, mlbid = NA) {
-  #just a stub for now
-  guru_df$mlbid <- c(1:nrow(guru_df))
-
-  guru_df
-}
-
 
 
 #' Get guru projections
@@ -122,18 +111,45 @@ guru_mlbid_match <- function(guru_df, mlbid = NA) {
 #' @description workhorse function.  reads the raw guru excel file,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_razzball_steamer
+#' @inheritParams get_razzball_steamer
+#'
 #' @return list of named projection data frames.
 #' @export
 
-get_guru <- function(year) {
+get_guru <- function(year, limit_unmatched = TRUE) {
 
   raw <- read_raw_guru(year)
   clean_h <- clean_raw_guru(raw$h, 'h')
   clean_p <- clean_raw_guru(raw$p, 'p')
 
-  clean_h <- guru_mlbid_match(clean_h)
-  clean_p <- guru_mlbid_match(clean_p)
+  clean_h$mlbid <- mlbid_match(clean_h)
+  clean_p$mlbid <- mlbid_match(clean_p)
+
+  if (limit_unmatched) {
+    num_h <- sum(is.na(clean_h$mlbid))
+    num_p <- sum(is.na(clean_p$mlbid))
+
+    guru_unmatched <<- c(
+      clean_h[is.na(clean_h$mlbid), ]$fullname,
+      clean_p[is.na(clean_p$mlbid), ]$fullname
+    )
+
+    message(paste0(
+      sprintf(
+        'dropped %s hitters and %s pitchers from the guru projections\n',
+        num_h, num_p
+      ),
+      'data because ids could not be matched.  these are usually players\n',
+      'with limited AB/IP.  see `guru_unmatched` for names.'
+    ))
+
+    clean_h <- clean_h[!is.na(clean_h$mlbid), ]
+    clean_p <- clean_p[!is.na(clean_p$mlbid), ]
+  }
+
+  #force one row per player
+  clean_h <- force_h_unique(clean_h)
+  clean_p <- force_p_unique(clean_p)
 
   clean_h$projection_name <- 'guru'
   clean_p$projection_name <- 'guru'

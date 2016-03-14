@@ -76,32 +76,59 @@ clean_raw_pod <- function(df, hit_pitch) {
 }
 
 
-pod_mlbid_match <- function(pod_df, mlbid = NA) {
-  #just a stub for now
-  pod_df$mlbid <- c(1:nrow(pod_df))
-
-  pod_df
-}
-
-
-
 #' Get pod projections
 #'
 #' @description workhorse function.  reads the raw pod excel file,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_razzball_steamer
+#'
+#' @param path_to_file path to the pod excel file you downloaded
+#' (pod projections are paid).
+#' @param limit_unmatched if TRUE (the default behavior) will only
+#' return players with an mlbid that can be matched.  look at `id_map`
+#' and the `universal_metadata` vignette for more about the id map
+#' we're using to match players to ids.
+#' fundamentally, you need a consistent, unique identifier if you
+#' want to work with multiple projection systems.  so this really
+#' needs to be TRUE.
+#'
 #' @return list of named projection data frames.
 #' @export
 
-get_pod <- function(path_to_file) {
+get_pod <- function(path_to_file, limit_unmatched = TRUE) {
 
   raw <- read_raw_pod(path_to_file)
   clean_h <- clean_raw_pod(raw$h, 'h')
   clean_p <- clean_raw_pod(raw$p, 'p')
 
-  clean_h <- pod_mlbid_match(clean_h)
-  clean_p <- pod_mlbid_match(clean_p)
+  clean_h$mlbid <- mlbid_match(clean_h)
+  clean_p$mlbid <- mlbid_match(clean_p)
+
+  if (limit_unmatched) {
+    num_h <- sum(is.na(clean_h$mlbid))
+    num_p <- sum(is.na(clean_p$mlbid))
+
+    pod_unmatched <<- c(
+      clean_h[is.na(clean_h$mlbid), ]$fullname,
+      clean_p[is.na(clean_p$mlbid), ]$fullname
+    )
+
+    message(paste0(
+      sprintf(
+        'dropped %s hitters and %s pitchers from the pod projections\n',
+        num_h, num_p
+      ),
+      'data because ids could not be matched.  these are usually players\n',
+      'with limited AB/IP.  see `pod_unmatched` for names.'
+    ))
+
+    clean_h <- clean_h[!is.na(clean_h$mlbid), ]
+    clean_p <- clean_p[!is.na(clean_p$mlbid), ]
+  }
+
+  #force one row per player
+  clean_h <- force_h_unique(clean_h)
+  clean_p <- force_p_unique(clean_p)
 
   clean_h$projection_name <- 'pod'
   clean_p$projection_name <- 'pod'
