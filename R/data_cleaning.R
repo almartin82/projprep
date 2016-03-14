@@ -37,7 +37,14 @@ priority_position <- function(
   tagged <- tag_position(player_positions, priorities)
   most_scarce <- min(tagged)
 
-  priorities[most_scarce]
+  priority_pos <- priorities[most_scarce]
+
+  #DH is not a real position
+  if ('Util' %in% names(user_settings$special_positions$h)) {
+    priority_pos <- gsub('DH', 'Util', priority_pos)
+  }
+
+  priority_pos
 }
 
 

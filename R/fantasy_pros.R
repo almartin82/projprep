@@ -71,22 +71,6 @@ clean_raw_fantasy_pros <- function(df, hit_pitch) {
   df$position <- clean_OF(df$position)
   df$position <- clean_pos(df$position)
   df$position <- clean_p(df$position)
-  #get priority position
-  if (hit_pitch == 'h') {
-    hierarchy <- user_settings$h_hierarchy
-  } else if (hit_pitch == 'p') {
-    hierarchy <- user_settings$p_hierarchy
-  }
-  df <- df %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(
-      priority_pos = priority_position(position, hierarchy)
-    )
-
-  #DH to util if util
-  if ('Util' %in% names(user_settings$special_positions$h)) {
-    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
-  }
 
   #clean up df names
   names(df) <- tolower(names(df))

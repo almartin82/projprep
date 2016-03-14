@@ -1,4 +1,3 @@
-
 #' generic fangraphs scrape
 #'
 #' @description pulls down fangraphs projections, given a projection
@@ -52,6 +51,20 @@ read_raw_steamer <- function() {
 }
 
 
+#' steamer600 scrape
+#'
+#' @return data frame
+#' @export
+
+read_raw_steamer600 <- function() {
+
+  h <- scrape_fangraphs('bat', 'steamer600')
+  p <- scrape_fangraphs('pit', 'steamer600')
+
+  list('h' = h, 'p' = p)
+}
+
+
 #' fangraphs fans scrape
 #'
 #' @return data frame
@@ -63,4 +76,59 @@ read_raw_fangraphs_fans <- function() {
   p <- scrape_fangraphs('pit', 'fan')
 
   list('h' = h, 'p' = p)
+}
+
+
+#' zips scrape
+#'
+#' @return data frame
+#' @export
+
+read_raw_zips <- function() {
+
+  h <- scrape_fangraphs('bat', 'zips')
+  p <- scrape_fangraphs('pit', 'zips')
+
+  list('h' = h, 'p' = p)
+}
+
+
+#' zips scrape
+#'
+#' @return data frame
+#' @export
+
+read_raw_zips <- function() {
+
+  h <- scrape_fangraphs('bat', 'fangraphsdc')
+  p <- scrape_fangraphs('pit', 'fangraphsdc')
+
+  list('h' = h, 'p' = p)
+}
+
+
+#' Cleans up a fangraphs (steamer, zips, fans etc) projection file.
+#'
+#' @description names, consistent stat names, etc.
+#' @param df raw fangraphs df, eg output of read_raw_steamer
+#' @param hit_pitch c('h', 'p')
+#'
+#' @return a data frame with consistent variable names
+#' @export
+
+clean_raw_fangraphs <- function(df, hit_pitch) {
+
+  #clean up df names
+  names(df) <- tolower(names(df))
+  names(df)[names(df) == 'pos'] <- 'position'
+
+  #clean up player names
+  names(df)[names(df) == 'Name'] <- 'FullName'
+  #no idea what these weird characters are
+  df$FullName <- gsub('[/pla', '', df$FullName, fixed = TRUE)
+  df$FirstName <- split_firstlast(df$FullName)$first
+  df$LastName <- split_firstlast(df$FullName)$last
+
+
+
 }
