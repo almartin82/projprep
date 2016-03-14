@@ -7,6 +7,8 @@
 get_guru(year, limit_unmatched = TRUE)
 }
 \arguments{
+\item{year}{desired year.  valid values: 2016}
+
 \item{limit_unmatched}{if TRUE (the default behavior) will only
 return players with an mlbid that can be matched.  look at `id_map`
 and the `universal_metadata` vignette for more about the id map

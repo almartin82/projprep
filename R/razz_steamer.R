@@ -102,7 +102,7 @@ clean_raw_razzball_steamer <- function(df, hit_pitch) {
 #' @description workhorse function.  reads the raw steamer data,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_razzball_steamer
+#' @param year desired year.  valid values: 2016
 #' @param limit_unmatched if TRUE (the default behavior) will only
 #' return players with an mlbid that can be matched.  look at `id_map`
 #' and the `universal_metadata` vignette for more about the id map
