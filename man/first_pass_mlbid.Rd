@@ -7,7 +7,7 @@
 first_pass_mlbid(name_vector)
 }
 \arguments{
-\item{name_vector}{}
+\item{name_vector}{character vector of names to match}
 }
 \value{
 vector of mlbids

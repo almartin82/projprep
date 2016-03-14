@@ -108,32 +108,50 @@ clean_raw_fantasy_pros <- function(df, hit_pitch) {
 }
 
 
-fantasy_pros_mlbid_match <- function(fantasy_pros_df, mlbid = NA) {
-  #just a stub for now
-  fantasy_pros_df$mlbid <- c(1:nrow(fantasy_pros_df))
-
-  fantasy_pros_df
-}
-
-
 #' Get fantasy pros
 #'
 #' @description workhorse function.  reads the raw fantasy pros dat,
 #' cleans up headers, returns list of projection data frames ready for
 #' projection_prep function.
-#' @inheritParams read_raw_razzball_steamer
+#' @inheritParams get_razzball_steamer
 #'
 #' @return projection prep object
 #' @export
 
-get_fantasy_pros <- function(year) {
+get_fantasy_pros <- function(year, limit_unmatched = TRUE) {
 
   raw <- read_raw_fantasy_pros(year)
   clean_h <- clean_raw_fantasy_pros(raw$h, 'h')
   clean_p <- clean_raw_fantasy_pros(raw$p, 'p')
 
-  clean_h <- fantasy_pros_mlbid_match(clean_h)
-  clean_p <- fantasy_pros_mlbid_match(clean_p)
+  clean_h$mlbid <- mlbid_match(clean_h)
+  clean_p$mlbid <- mlbid_match(clean_p)
+
+  if (limit_unmatched) {
+    num_h <- sum(is.na(clean_h$mlbid))
+    num_p <- sum(is.na(clean_p$mlbid))
+
+    fantasy_pros_unmatched <<- c(
+      clean_h[is.na(clean_h$mlbid), ]$fullname,
+      clean_p[is.na(clean_p$mlbid), ]$fullname
+    )
+
+    message(paste0(
+      sprintf(
+        'dropped %s hitters and %s pitchers from the fp projections\n',
+        num_h, num_p
+      ),
+      'data because ids could not be matched.  these are usually players\n',
+      'with limited AB/IP.  see `fantasy_pros_unmatched` for names.'
+    ))
+
+    clean_h <- clean_h[!is.na(clean_h$mlbid), ]
+    clean_p <- clean_p[!is.na(clean_p$mlbid), ]
+  }
+
+  #force one row per player
+  clean_h <- force_h_unique(clean_h)
+  clean_p <- force_p_unique(clean_p)
 
   clean_h$projection_name <- 'fantasy_pros'
   clean_p$projection_name <- 'fantasy_pros'

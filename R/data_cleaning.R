@@ -156,3 +156,48 @@ clean_quotes <- function(x) {
 
   x
 }
+
+
+#' force h projection data unique
+#'
+#' @description some projection systems weirdly include multiple rows
+#' per player.  that wreaks havoc down the line.
+#' @param clean_df data frame that has been cleaned, eg output of
+#' clean_raw_razzball_steamer
+#'
+#' @return data frame, with one row per id
+#' @export
+
+force_h_unique <- function(clean_df) {
+
+  clean_df %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(mlbid) %>%
+    dplyr::mutate(
+      rn = rank(desc(ab), ties.method = 'first')
+    ) %>%
+    dplyr::filter(rn == 1) %>%
+    dplyr::select(-rn)
+}
+
+
+#' force p projection data unique
+#'
+#' @description some projection systems weirdly include multiple rows
+#' per player.  that wreaks havoc down the line.
+#' @inheritParams force_h_unique
+#'
+#' @return data frame, with one row per id
+#' @export
+
+force_p_unique <- function(clean_df) {
+
+  clean_df %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(mlbid) %>%
+    dplyr::mutate(
+      rn = rank(desc(ip), ties.method = 'first')
+    ) %>%
+    dplyr::filter(rn == 1) %>%
+    dplyr::select(-rn)
+}

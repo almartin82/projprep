@@ -2,7 +2,7 @@
 #'
 #' @description first get the easy ones - the players for whom there
 #' is one, and only one, match on the exact spelling of their full name
-#' @param name_vector
+#' @param name_vector character vector of names to match
 #'
 #' @return vector of mlbids
 #' @export

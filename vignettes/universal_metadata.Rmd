@@ -41,7 +41,11 @@ Presumably we'll manually add in some names here:
 ```{r}
 
 #manual additions...
-
+id_map[id_map$playername == 'Hyun-soo Kim', 'mlbid'] <- 547957
+id_map[id_map$playername == 'Socrates Brito', 'mlbid'] <- 593647
+id_map[id_map$playername == 'Tyler Goeddel', 'mlbid'] <- 595963
+#id_map[id_map$playername == 'Aledmys Diaz', 'mlbid'] <- 649557
+  
 ```
 
 Then save the id map as an .rda file so it can be used by the package:
