@@ -11,13 +11,14 @@ License: GPL-3
 LazyData: TRUE
 Depends:
     dplyr,
-    googlesheets,
     httr,
     magrittr,
     rvest,
     yaml
 Suggests:
     downloader,
+    googlesheets,
     readxl,
-    testthat
+    testthat,
+    XML
 RoxygenNote: 5.0.1
