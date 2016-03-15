@@ -80,3 +80,17 @@ test_that('proj_prep object with pod projections', {
   expect_is(pp$h_final, 'data.frame')
   expect_is(pp$p_final, 'data.frame')
 })
+
+
+test_that('proj_prep object with fangraphs steamer', {
+
+  ex <- get_steamer(2016, TRUE)
+  pp <- proj_prep(ex)
+
+  expect_is(pp$h, 'data.frame')
+  expect_is(pp$p, 'data.frame')
+  expect_is(pp$replacement, 'list')
+  expect_is(pp$special_replacement, 'list')
+  expect_is(pp$h_final, 'data.frame')
+  expect_is(pp$p_final, 'data.frame')
+})

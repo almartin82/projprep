@@ -185,6 +185,7 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
     )
 
     df$position <- ifelse(df$gs >= 2, 'SP', 'RP')
+    names(df)[names(df) == 'so'] <- 'k'
 
     df <- df %>%
       dplyr::select(-url)
