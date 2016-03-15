@@ -51,3 +51,39 @@ test_that('get steamer works', {
   expect_is(ex$h, 'data.frame')
   expect_is(ex$p, 'data.frame')
 })
+
+
+test_that('get steamer600 works', {
+
+  ex <- get_steamer600(2016, TRUE)
+  expect_is(ex, 'list')
+  expect_is(ex$h, 'data.frame')
+  expect_is(ex$p, 'data.frame')
+})
+
+
+test_that('get fangraphs fans works', {
+
+  ex <- get_fangraphs_fans(2016, TRUE)
+  expect_is(ex, 'list')
+  expect_is(ex$h, 'data.frame')
+  expect_is(ex$p, 'data.frame')
+})
+
+
+test_that('get fangraphs depth charts works', {
+
+  ex <- get_fangraphs_depth_charts(2016, TRUE)
+  expect_is(ex, 'list')
+  expect_is(ex$h, 'data.frame')
+  expect_is(ex$p, 'data.frame')
+})
+
+
+test_that('get zips works', {
+
+  ex <- get_zips(2016, TRUE)
+  expect_is(ex, 'list')
+  expect_is(ex$h, 'data.frame')
+  expect_is(ex$p, 'data.frame')
+})
