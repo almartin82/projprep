@@ -41,7 +41,7 @@ priority_position <- function(
 
   #DH is not a real position
   if ('Util' %in% names(user_settings$special_positions$h)) {
-    priority_pos <- gsub('', 'Util', priority_pos)
+    priority_pos <- gsub('DH', 'Util', priority_pos)
   }
 
   priority_pos
