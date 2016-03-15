@@ -2,7 +2,7 @@
 % Please edit documentation in R/pod.R
 \name{read_raw_pod}
 \alias{read_raw_pod}
-\title{Read raw guru projections, given a path to the download file}
+\title{Read raw pod projections, given a path to the download file}
 \usage{
 read_raw_pod(path_to_file)
 }

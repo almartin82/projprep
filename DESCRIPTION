@@ -9,18 +9,19 @@ Description: Reads in fantasy baseball projection systems,
     converts projections to standard scores, calculates auction prices.
 License: GPL-3
 LazyData: TRUE
-Depends:
-    dplyr,
-    httr,
-    magrittr,
-    rvest,
-    yaml
-Suggests:
+Imports:
     downloader,
+    dplyr,
     ensurer,
     googlesheets,
+    httr,
+    magrittr,
     readxl,
+    rvest,
     stringr,
     testthat,
-    XML
+    XML,
+    yaml
+Suggests:
+    testthat
 RoxygenNote: 5.0.1
