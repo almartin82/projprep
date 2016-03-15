@@ -1,4 +1,4 @@
-#' Read raw guru projections, given a path to the download file
+#' Read raw pod projections, given a path to the download file
 #'
 #' @description reads the http://www.projectingx.com/baseball-player-projections/
 #' pod projections.  pod projections are paid, so this function requires
