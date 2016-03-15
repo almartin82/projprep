@@ -3,6 +3,17 @@ context('zscore')
 test_that('zscore works with positional / non-positional groups', {
 
   s <- get_razzball_steamer(2016)
+  s$h <- s$h %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, user_settings$h_hierarchy)
+    )
+  s$p <- s$p %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, user_settings$p_hierarchy)
+    )
+
   s_filtered <- limit_proj_vars(s)
 
   #zscore

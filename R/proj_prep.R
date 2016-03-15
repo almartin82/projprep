@@ -21,6 +21,7 @@ proj_prep <- function(proj_list, ...) UseMethod("proj_prep")
 proj_prep.default <- function(
   proj_list,
   verbose = TRUE,
+  drop_invalid_pos = TRUE,
   ...) {
 
   initial_message <- paste0(
@@ -37,6 +38,39 @@ proj_prep.default <- function(
     '\n'
   )
   message(initial_message)
+
+  #TODO: apply custom positions here
+
+  #determine priority_pos
+  proj_list$h <- proj_list$h %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, user_settings$h_hierarchy)
+    )
+  proj_list$p <- proj_list$p %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      priority_pos = priority_position(position, user_settings$p_hierarchy)
+    )
+
+  if (drop_invalid_pos) {
+    valid_h <- proj_list$h[!is.na(proj_list$h$priority_pos), ]
+    valid_p <- proj_list$p[!is.na(proj_list$p$priority_pos), ]
+
+    invalid_pos_message <- paste0(
+      'filtering players with invalid positions for your league settings.\n',
+      sprintf(
+        'filtered %s hitters and %s pitchers.',
+        nrow(proj_list$h) - nrow(valid_h),
+        nrow(proj_list$p) - nrow(valid_p)
+      )
+    )
+    message(invalid_pos_message)
+
+    proj_list$h <- valid_h
+    proj_list$p <- valid_p
+  }
+
 
   #prep and limit to target stats
   pp_filtered <- limit_proj_vars(proj_list)
@@ -111,7 +145,7 @@ proj_prep.default <- function(
 
 common_proj_prep_vars <- function() {
   c('mlbid', 'fullname', 'firstname', 'lastname',
-    'position', 'priority_pos', 'projection_name'
+   'position', 'priority_pos', 'projection_name'
   )
 }
 

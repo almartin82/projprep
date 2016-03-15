@@ -35,7 +35,6 @@ clean_raw_pod <- function(df, hit_pitch) {
 
   #fix stat names
   if (hit_pitch == 'h') {
-    hierarchy <- user_settings$h_hierarchy
 
     names(df)[names(df) == 'pos (20 g)'] <- 'position'
     df$position <- gsub('/', ', ', df$position, fixed = TRUE)
@@ -49,7 +48,6 @@ clean_raw_pod <- function(df, hit_pitch) {
 
   } else if (hit_pitch == 'p') {
 
-    hierarchy <- user_settings$p_hierarchy
     names(df)[names(df) == 'so'] <- 'k'
 
     #clean up stupid position names
@@ -58,18 +56,6 @@ clean_raw_pod <- function(df, hit_pitch) {
     df$position <- gsub('Cl', 'RP', df$position)
     df$position <- gsub('MR', 'RP', df$position)
 
-  }
-
-  #priority pos
-  df <- df %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(
-      priority_pos = priority_position(position, hierarchy)
-    )
-
-  #DH to util if util
-  if ('Util' %in% names(user_settings$special_positions$h)) {
-    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
   }
 
   df

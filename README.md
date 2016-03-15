@@ -60,23 +60,23 @@ produces
 * [baseball guru](http://baseballguru.com/bbinside4.html)
 * [pod projections](http://www.projectingx.com/baseball-player-projections/)
 * [razzball steamer](http://razzball.com/steamer-hitter-projections/)
+* [steamer](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer&team=0&lg=all&players=0)
+* [steamer600](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer600&team=0&lg=all&players=0)
+* [fangraphs fans (`fan`)](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
+* [fangraphs depth charts(`fangraphsdc`)](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
+* [zips](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
 
 ## not yet supported
 
-* [steamer](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer&team=0&lg=all&players=0)
-* [steamer600](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer600&team=0&lg=all&players=0)
-* [fangraphs fans](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
-* [fangraphs depth charts](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
-* [zips](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
-* [tg](http://www.tgfantasybaseball.com/baseball/projections.cfm)
-* [morps](http://morps.mlblogs.com/category/morps/)
-* [cheatsheet](http://mrcheatsheet.com/2016/03/08/2016-fantasy-baseball-cheatsheets-2/)
+* [pecota](http://www.baseballprospectus.com/fantasy/extras/splash_page.php)
 * [davenport](http://claydavenport.com/projections/PROJHOME.shtml)
 * [espn](http://games.espn.go.com/flb/tools/projections?display=alt)
+* [morps](http://morps.mlblogs.com/category/morps/)
+* [cheatsheet](http://mrcheatsheet.com/2016/03/08/2016-fantasy-baseball-cheatsheets-2/)
+* [tg](http://www.tgfantasybaseball.com/baseball/projections.cfm)
 * [marcel] (_can't find link to 2016 projections_)
 * [cairo] (_can't find link to 2016 projections_)
-* [pecota] (http://www.baseballprospectus.com/fantasy/extras/splash_page.php)
 
-# Code of conduct
+## code of conduct
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

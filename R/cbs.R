@@ -84,24 +84,6 @@ clean_raw_cbs <- function(df, hit_pitch) {
   df$firstname <- split_firstlast(df$fullname)$first
   df$lastname <- split_firstlast(df$fullname)$last
 
-  #get priority position
-  if (hit_pitch == 'h') {
-    hierarchy <- user_settings$h_hierarchy
-  } else if (hit_pitch == 'p') {
-    hierarchy <- user_settings$p_hierarchy
-  }
-  df <- df %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(
-      priority_pos = priority_position(position, hierarchy)
-    )
-
-  #DH to util if util
-  if ('Util' %in% names(user_settings$special_positions$h)) {
-    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
-  }
-
-
   #build tb
   if (hit_pitch == 'h') {
     #string to numeric

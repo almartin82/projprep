@@ -44,8 +44,6 @@ clean_raw_guru <- function(df, hit_pitch) {
 
   #fix stat names
   if (hit_pitch == 'h') {
-    hierarchy <- user_settings$h_hierarchy
-
     #players with no games
     df <- df[df$mg > 0, ]
 
@@ -69,8 +67,6 @@ clean_raw_guru <- function(df, hit_pitch) {
 
   } else if (hit_pitch == 'p') {
 
-    hierarchy <- user_settings$p_hierarchy
-
     #players with no ip
     df <- df[df$mip > 0, ]
     df <- df[!is.na(df$mdera), ]
@@ -88,18 +84,6 @@ clean_raw_guru <- function(df, hit_pitch) {
     df$position <- gsub('DP', 'RP', df$position)
     df$position <- gsub('BP', 'RP', df$position)
     df$position <- gsub('AP', 'RP', df$position)
-  }
-
-  #priority pos
-  df <- df %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(
-      priority_pos = priority_position(position, hierarchy)
-    )
-
-  #DH to util if util
-  if ('Util' %in% names(user_settings$special_positions$h)) {
-    df$priority_pos <- gsub('DH', 'Util', df$priority_pos)
   }
 
   df
