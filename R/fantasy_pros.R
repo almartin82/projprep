@@ -7,7 +7,7 @@
 
 scrape_fantasy_pros <- function(url) {
 
-  h <- read_html(url)
+  h <- xml2::read_html(url)
 
   projs <- h %>%
     html_nodes('#data') %>%

@@ -9,7 +9,7 @@ Description: Reads in fantasy baseball projection systems,
     converts projections to standard scores, calculates auction prices.
 License: GPL-3
 LazyData: TRUE
-Imports:
+Depends:
     downloader,
     dplyr,
     ensurer,
