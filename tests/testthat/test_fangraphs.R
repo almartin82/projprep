@@ -42,3 +42,12 @@ test_that('get fangraphs works', {
   expect_is(ex$h, 'data.frame')
   expect_is(ex$p, 'data.frame')
 })
+
+
+test_that('get steamer works', {
+
+  ex <- get_steamer(2016, TRUE)
+  expect_is(ex, 'list')
+  expect_is(ex$h, 'data.frame')
+  expect_is(ex$p, 'data.frame')
+})

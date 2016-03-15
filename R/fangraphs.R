@@ -258,3 +258,93 @@ get_fangraphs <- function(year, proj_system, limit_unmatched = TRUE) {
   list('h' = clean_h, 'p' = clean_p)
 }
 
+
+#' Get steamer projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_steamer <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'steamer', limit_unmatched)
+}
+
+
+#' Get steamer projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_steamer <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'steamer', limit_unmatched)
+}
+
+
+#' Get steamer600 projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_steamer600 <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'steamer600', limit_unmatched)
+}
+
+
+#' Get steamer600 projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_steamer600 <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'steamer600', limit_unmatched)
+}
+
+
+#' Get fangraphs fans projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_fangraphs_fans <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'fan', limit_unmatched)
+}
+
+
+#' Get fangraphs depth charts projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_fangraphs_depth_charts <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'fangraphsdc', limit_unmatched)
+}
+
+
+#' Get zips projections
+#'
+#' @description see ?get_fangraphs
+#' @inheritParams get_razzball_steamer
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_zips <- function(year, limit_unmatched = TRUE) {
+  get_fangraphs(year, 'zips', limit_unmatched)
+}
