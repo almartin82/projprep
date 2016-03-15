@@ -1,8 +1,9 @@
 context('fangraphs')
 
+steamer_ex <- read_raw_steamer()
+
 test_that('raw steamer scrape works', {
-  ex <- read_raw_steamer()
-  expect_is(ex$h, 'data.frame')
+  expect_is(steamer_ex$h, 'data.frame')
 })
 
 
@@ -21,4 +22,14 @@ test_that('raw fangraphs fans scrape works', {
 test_that('raw zips scrape works', {
   ex <- read_raw_zips()
   expect_is(ex$h, 'data.frame')
+})
+
+
+test_that('clean fangraphs works', {
+
+  clean_h <- clean_raw_fangraphs(steamer_ex$h, 'h')
+  clean_p <- clean_raw_fangraphs(steamer_ex$p, 'p')
+
+  expect_is(clean_h, 'data.frame')
+  expect_is(clean_p, 'data.frame')
 })

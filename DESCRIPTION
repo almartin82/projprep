@@ -19,6 +19,7 @@ Suggests:
     downloader,
     googlesheets,
     readxl,
+    stringr,
     testthat,
     XML
 RoxygenNote: 5.0.1

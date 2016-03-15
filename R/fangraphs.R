@@ -125,15 +125,70 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
 
   #clean up df names
   names(df) <- tolower(names(df))
-  names(df)[names(df) == 'pos'] <- 'position'
+
+  #drop the weird notes column
+  names(df)[2] <- 'fg_note'
+  df <- df %>%
+    dplyr::select(-fg_note)
 
   #clean up player names
-  names(df)[names(df) == 'Name'] <- 'FullName'
-  #no idea what these weird characters are
-  df$FullName <- gsub('[/pla', '', df$FullName, fixed = TRUE)
-  df$FirstName <- split_firstlast(df$FullName)$first
-  df$LastName <- split_firstlast(df$FullName)$last
+  names(df)[names(df) == 'name'] <- 'fullname'
+  df$firstname <- split_firstlast(df$fullname)$first
+  df$lastname <- split_firstlast(df$fullname)$last
 
+  if (hit_pitch == 'h') {
 
+    #get positions from the url string
+    pos <- stringr::str_extract(df$url, "pos=\\w{1,2}")
+    pos <- gsub('pos=', '', pos) %>% toupper()
+    df$position <- pos
 
+    df <- force_numeric(
+      df, c("pa", "ab", "h", "2b", "3b", "hr", "r", "rbi", "bb",
+            "so", "hbp", "sb", "cs", "avg", "obp", "slg", "ops",
+            "woba", "wrc+", "bsr", "fld", "off", "def", "war")
+    )
+
+    #tb
+    df <- df %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        tb = calc_tb(h, `2b`, `3b`, hr)
+      )
+
+    #group_concat positions
+    pos_df <- df %>%
+      dplyr::select(
+        fullname, team, position
+      ) %>%
+      dplyr::ungroup() %>%
+      dplyr::group_by(fullname, team) %>%
+      dplyr::summarize(
+        position = toString(unique(position))
+      )
+
+    stat_df <- df %>%
+      dplyr::select(-url, -position) %>%
+      unique()
+
+    df <- pos_df %>%
+      dplyr::inner_join(
+        y = stat_df,
+        by = c('fullname', 'team')
+      )
+
+  } else if (hit_pitch == 'p') {
+
+    df <- force_numeric(
+      df, c('w', 'l', 'era', 'gs', 'g', 'sv', 'ip', 'h', 'er', 'hr',
+            'so', 'bb', 'whip', 'k/9', 'bb/9', 'fip', 'war', 'ra9-war')
+    )
+
+    df$position <- ifelse(df$gs >= 2, 'SP', 'RP')
+
+    df <- df %>%
+      dplyr::select(-url)
+  }
+
+  df
 }
