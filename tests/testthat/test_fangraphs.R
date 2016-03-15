@@ -33,3 +33,12 @@ test_that('clean fangraphs works', {
   expect_is(clean_h, 'data.frame')
   expect_is(clean_p, 'data.frame')
 })
+
+
+test_that('get fangraphs works', {
+
+  ex <- get_fangraphs(2016, 'steamer')
+  expect_is(ex, 'list')
+  expect_is(ex$h, 'data.frame')
+  expect_is(ex$p, 'data.frame')
+})

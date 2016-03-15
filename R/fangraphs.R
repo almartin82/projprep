@@ -192,3 +192,69 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
 
   df
 }
+
+
+#' Get various fangraphs projections
+#'
+#' @description workhorse function.  reads, cleans, preps, matches
+#' fangraphs projections
+#' @param year desired year.  valid values: 2016
+#' @param proj_system proj_system name of a projection system.  one of c('zips',
+#' 'fan', 'steamer', 'steamer600', 'fangraphsdc')
+#' @param limit_unmatched if TRUE (the default behavior) will only
+#' return players with an mlbid that can be matched.  look at `id_map`
+#' and the `universal_metadata` vignette for more about the id map
+#' we're using to match players to ids.
+#' fundamentally, you need a consistent, unique identifier if you
+#' want to work with multiple projection systems.  so this really
+#' needs to be TRUE.
+#'
+#' @return list of named projection data frames.
+#' @export
+
+get_fangraphs <- function(year, proj_system, limit_unmatched = TRUE) {
+  year %>% ensurer::ensure_that(
+      . == 2016 ~ 'fangraphs only reports current-year projections.'
+    )
+
+  raw_h <- scrape_fangraphs('bat', proj_system)
+  raw_p <- scrape_fangraphs('pit', proj_system)
+
+  clean_h <- clean_raw_fangraphs(raw_h, 'h')
+  clean_p <- clean_raw_fangraphs(raw_p, 'p')
+
+  clean_h$mlbid <- mlbid_match(clean_h)
+  clean_p$mlbid <- mlbid_match(clean_p)
+
+  if (limit_unmatched) {
+    num_h <- sum(is.na(clean_h$mlbid))
+    num_p <- sum(is.na(clean_p$mlbid))
+
+    fangraphs_unmatched <<- c(
+      clean_h[is.na(clean_h$mlbid), ]$fullname,
+      clean_p[is.na(clean_p$mlbid), ]$fullname
+    )
+
+    message(paste0(
+      sprintf(
+        'dropped %s hitters and %s pitchers from the %s projections\n',
+        num_h, num_p, proj_system
+      ),
+      'data because ids could not be matched.  these are usually players\n',
+      'with limited AB/IP.  see `fangraphs_unmatched` for names.'
+    ))
+
+    clean_h <- clean_h[!is.na(clean_h$mlbid), ]
+    clean_p <- clean_p[!is.na(clean_p$mlbid), ]
+  }
+
+  #force one row per player
+  clean_h <- force_h_unique(clean_h)
+  clean_p <- force_p_unique(clean_p)
+
+  clean_h$projection_name <- proj_system
+  clean_p$projection_name <- proj_system
+
+  list('h' = clean_h, 'p' = clean_p)
+}
+

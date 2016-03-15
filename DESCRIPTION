@@ -17,6 +17,7 @@ Depends:
     yaml
 Suggests:
     downloader,
+    ensurer,
     googlesheets,
     readxl,
     stringr,
