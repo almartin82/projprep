@@ -10,7 +10,7 @@ get_fangraphs(year, proj_system, limit_unmatched = TRUE)
 \item{year}{desired year.  valid values: 2016}
 
 \item{proj_system}{proj_system name of a projection system.  one of c('zips',
-'fan', 'steamer', 'steamer600', 'fangraphsdc')}
+'steamer', 'steamer600', 'fangraphsdc')}
 
 \item{limit_unmatched}{if TRUE (the default behavior) will only
 return players with an mlbid that can be matched.  look at `id_map`

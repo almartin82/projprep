@@ -10,7 +10,7 @@ scrape_fangraphs(bat_pitch, proj_system)
 \item{bat_pitch}{either 'bat' or 'pit'}
 
 \item{proj_system}{name of a projection system.  one of c('zips',
-'fan', 'steamer', 'steamer600', 'fangraphsdc')}
+'steamer', 'steamer600', 'fangraphsdc')}
 }
 \value{
 data frame

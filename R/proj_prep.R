@@ -71,7 +71,6 @@ proj_prep.default <- function(
     proj_list$p <- valid_p
   }
 
-
   #prep and limit to target stats
   pp_filtered <- limit_proj_vars(proj_list)
 
