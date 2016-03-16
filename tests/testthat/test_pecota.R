@@ -2,7 +2,7 @@ context('pecota')
 
 
 test_that('manual read raw pecota', {
-  ex <- read_raw_pecota(file.path('paid_projections', 'pecota_2016.xls'))
+  ex <- read_raw_pecota(pecota_file_loc)
   expect_is(ex$h, 'data.frame')
 })
 
