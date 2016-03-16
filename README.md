@@ -64,10 +64,10 @@ produces
 * [steamer600](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer600&team=0&lg=all&players=0)
 * [fangraphs depth charts (_fangraphsdc_)](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
 * [zips](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
+* [pecota](http://www.baseballprospectus.com/fantasy/extras/splash_page.php)
 
 ## not yet supported
 
-* [pecota](http://www.baseballprospectus.com/fantasy/extras/splash_page.php)
 * [davenport](http://claydavenport.com/projections/PROJHOME.shtml)
 * [espn](http://games.espn.go.com/flb/tools/projections?display=alt)
 * [morps](http://morps.mlblogs.com/category/morps/)
