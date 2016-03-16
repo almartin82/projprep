@@ -2,7 +2,7 @@
 % Please edit documentation in R/fangraphs.R
 \name{clean_raw_fangraphs}
 \alias{clean_raw_fangraphs}
-\title{Cleans up a fangraphs (steamer, zips, fans etc) projection file.}
+\title{Cleans up a fangraphs (steamer, zips etc) projection file.}
 \usage{
 clean_raw_fangraphs(df, hit_pitch)
 }

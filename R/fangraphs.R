@@ -4,7 +4,7 @@
 #' system and hit/pitch value
 #' @param bat_pitch either 'bat' or 'pit'
 #' @param proj_system name of a projection system.  one of c('zips',
-#' 'fan', 'steamer', 'steamer600', 'fangraphsdc')
+#' 'steamer', 'steamer600', 'fangraphsdc')
 #'
 #' @return data frame
 #' @export
@@ -13,7 +13,7 @@ scrape_fangraphs <- function(bat_pitch, proj_system) {
 
   base_fangraphs <- 'http://www.fangraphs.com/projections.aspx?pos='
   if (bat_pitch == 'bat') {
-    end_params <- '&players=0&sort=26,d'
+    end_params <- '&players=0&sort=4,d'
     pos_choices <- c('c', '1b', '2b', 'ss', '3b', 'of')
   } else if (bat_pitch == 'pit') {
     end_params <- '&players=0&sort=9,d'
@@ -70,20 +70,6 @@ read_raw_steamer600 <- function() {
 }
 
 
-#' fangraphs fans scrape
-#'
-#' @return data frame
-#' @export
-
-read_raw_fangraphs_fans <- function() {
-
-  h <- scrape_fangraphs('bat', 'fan')
-  p <- scrape_fangraphs('pit', 'fan')
-
-  list('h' = h, 'p' = p)
-}
-
-
 #' zips scrape
 #'
 #' @return data frame
@@ -112,7 +98,7 @@ read_raw_zips <- function() {
 }
 
 
-#' Cleans up a fangraphs (steamer, zips, fans etc) projection file.
+#' Cleans up a fangraphs (steamer, zips etc) projection file.
 #'
 #' @description names, consistent stat names, etc.
 #' @param df raw fangraphs df, eg output of read_raw_steamer
@@ -201,7 +187,7 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
 #' fangraphs projections
 #' @param year desired year.  valid values: 2016
 #' @param proj_system proj_system name of a projection system.  one of c('zips',
-#' 'fan', 'steamer', 'steamer600', 'fangraphsdc')
+#' 'steamer', 'steamer600', 'fangraphsdc')
 #' @param limit_unmatched if TRUE (the default behavior) will only
 #' return players with an mlbid that can be matched.  look at `id_map`
 #' and the `universal_metadata` vignette for more about the id map
@@ -309,19 +295,6 @@ get_steamer600 <- function(year, limit_unmatched = TRUE) {
 
 get_steamer600 <- function(year, limit_unmatched = TRUE) {
   get_fangraphs(year, 'steamer600', limit_unmatched)
-}
-
-
-#' Get fangraphs fans projections
-#'
-#' @description see ?get_fangraphs
-#' @inheritParams get_razzball_steamer
-#'
-#' @return list of named projection data frames.
-#' @export
-
-get_fangraphs_fans <- function(year, limit_unmatched = TRUE) {
-  get_fangraphs(year, 'fan', limit_unmatched)
 }
 
 

@@ -13,12 +13,6 @@ test_that('raw steamer600 scrape works', {
 })
 
 
-test_that('raw fangraphs fans scrape works', {
-  ex <- read_raw_fangraphs_fans()
-  expect_is(ex$h, 'data.frame')
-})
-
-
 test_that('raw zips scrape works', {
   ex <- read_raw_zips()
   expect_is(ex$h, 'data.frame')
@@ -56,15 +50,6 @@ test_that('get steamer works', {
 test_that('get steamer600 works', {
 
   ex <- get_steamer600(2016, TRUE)
-  expect_is(ex, 'list')
-  expect_is(ex$h, 'data.frame')
-  expect_is(ex$p, 'data.frame')
-})
-
-
-test_that('get fangraphs fans works', {
-
-  ex <- get_fangraphs_fans(2016, TRUE)
   expect_is(ex, 'list')
   expect_is(ex$h, 'data.frame')
   expect_is(ex$p, 'data.frame')
