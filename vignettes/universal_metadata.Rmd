@@ -36,6 +36,38 @@ for (i in name_cols) {
 
 ```
 
+Read in PECOTA and attach the relevant columns to the data frame
+```{r}
+
+pecota_h <- readxl::read_excel(
+  path = file.path('paid_projections', 'pecota_2016.xls'),
+  sheet = 2
+) 
+names(pecota_h) <- tolower(names(pecota_h))
+pecota_h$fullname <- paste(pecota_h$firstname, pecota_h$lastname)
+
+pecota_p <- readxl::read_excel(
+  path = file.path('paid_projections', 'pecota_2016.xls'),
+  sheet = 3
+)
+names(pecota_p) <- tolower(names(pecota_p))
+pecota_p$playername <- paste(pecota_p$firstname, pecota_p$lastname)
+
+peek(pecota_h)
+peek(pecota_p)
+```
+
+pick the relevant cols
+```{r}
+
+id_cols <- c('bpid', 'born', 'mlbcode', 'fullname')
+pecota_h_slim <- pecota_h[, id_cols]
+pecota_p_slim <- pecota_p[, id_cols]
+
+pecota_slim <- rbind(pecota_h_slim, pecota_p_slim)
+names(pecota_slim)[names(pecota_slim) == 'mlbcode'] <- 'mlbid'
+```
+
 Presumably we'll manually add in some names here:
 
 ```{r}
@@ -47,6 +79,22 @@ id_map[id_map$playername == 'Tyler Goeddel', 'mlbid'] <- 595963
 #id_map[id_map$playername == 'Aledmys Diaz', 'mlbid'] <- 649557
   
 ```
+
+
+anti join gets us everyone NOT in id_map
+```{r}
+
+missing <- pecota_slim %>%
+  dplyr::anti_join(
+    id_map[!is.na(id_map$mlbid)], by = 'mlbid'
+  )
+
+peek(missing)
+
+id_map <- dplyr::bind_rows(id_map, missing)
+```
+
+
 
 Then save the id map as an .rda file so it can be used by the package:
 
