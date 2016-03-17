@@ -71,7 +71,6 @@ produces
 * [davenport](http://claydavenport.com/projections/PROJHOME.shtml)
 * [espn](http://games.espn.go.com/flb/tools/projections?display=alt)
 * [morps](http://morps.mlblogs.com/category/morps/)
-* [cheatsheet](http://mrcheatsheet.com/2016/03/08/2016-fantasy-baseball-cheatsheets-2/)
 * [tg](http://www.tgfantasybaseball.com/baseball/projections.cfm)
 * [marcel] (_can't find link to 2016 projections_)
 * [cairo] (_can't find link to 2016 projections_)
