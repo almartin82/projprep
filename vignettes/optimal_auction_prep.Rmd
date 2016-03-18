@@ -1,0 +1,63 @@
+---
+title: "prep data for optimal auction app"
+author: "Andrew Martin"
+date: "March 17, 2016"
+output: html_document
+---
+
+Prep all the projections:
+
+steamer
+steamer600
+fangraphs depth charts (fangraphsdc)
+zips
+
+```{r prep, cache=TRUE}
+  
+#web
+cbs <- get_cbs(2016) %>% proj_prep()
+fp <- get_fantasy_pros(2016) %>% proj_prep()
+guru <- get_guru(2016) %>% proj_prep()
+razz_steamer <- get_razzball_steamer(2016) %>% proj_prep()
+steamer <- get_steamer(2016) %>% proj_prep()
+dc <- get_fangraphs_depth_charts(2016) %>% proj_prep()
+
+#downloads
+pod <- get_pod(file.path('paid_projections', 'pod_projections.xlsx')) %>%
+  proj_prep()
+pecota <- get_pecota(file.path('paid_projections', 'pecota_2016.xls')) %>%
+  proj_prep()
+
+```
+
+Save them to the optimal auction data folder 
+
+```{r}
+
+saveRDS(cbs, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'cbs.rds')
+)
+saveRDS(fp, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'fp.rds')
+)
+saveRDS(guru, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'guru.rds')
+)
+saveRDS(razz_steamer, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'razz_steamer.rds')
+)
+saveRDS(steamer, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'steamer.rds')
+)
+saveRDS(dc, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'dc.rds')
+)
+saveRDS(pod, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'pod.rds')
+)
+saveRDS(pecota, 
+  file = file.path('..', 'optimal-auction', 'proj_data', 'pecota.rds')
+)
+
+```
+

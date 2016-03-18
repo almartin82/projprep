@@ -235,6 +235,11 @@ get_fangraphs <- function(year, proj_system, limit_unmatched = TRUE) {
     clean_p <- clean_p[!is.na(clean_p$mlbid), ]
   }
 
+  #zips doesn't project saves.  set to NA
+  if (proj_system == 'zips') {
+    clean_p$sv <- NA
+  }
+
   #force one row per player
   clean_h <- force_h_unique(clean_h)
   clean_p <- force_p_unique(clean_p)

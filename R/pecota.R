@@ -100,8 +100,6 @@ get_pecota <- function(path_to_file, limit_unmatched = TRUE) {
   clean_h$projection_name <- 'pecota'
   clean_p$projection_name <- 'pecota'
 
-  print(names(clean_p))
-
   list('h' = clean_h, 'p' = clean_p)
 }
 

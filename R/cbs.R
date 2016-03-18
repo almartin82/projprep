@@ -116,14 +116,6 @@ clean_raw_cbs <- function(df, hit_pitch) {
 }
 
 
-cbs_mlbid_match <- function(cbs_df, mlbid = NA) {
-  #just a stub for now
-  cbs_df$mlbid <- c(1:nrow(cbs_df))
-
-  cbs_df
-}
-
-
 #' Get cbs
 #'
 #' @description workhorse function.  reads the raw cbs data file,
@@ -139,8 +131,8 @@ get_cbs <- function(year) {
   clean_h <- clean_raw_cbs(raw$h, 'h')
   clean_p <- clean_raw_cbs(raw$p, 'p')
 
-  clean_h <- cbs_mlbid_match(clean_h)
-  clean_p <- cbs_mlbid_match(clean_p)
+  clean_h$mlbid <- mlbid_match(clean_h)
+  clean_p$mlbid <- mlbid_match(clean_p)
 
   clean_h$projection_name <- 'cbs'
   clean_p$projection_name <- 'cbs'

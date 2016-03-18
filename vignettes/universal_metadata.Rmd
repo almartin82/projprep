@@ -44,7 +44,7 @@ pecota_h <- readxl::read_excel(
   sheet = 2
 ) 
 names(pecota_h) <- tolower(names(pecota_h))
-pecota_h$fullname <- paste(pecota_h$firstname, pecota_h$lastname)
+pecota_h$playername <- paste(pecota_h$firstname, pecota_h$lastname)
 
 pecota_p <- readxl::read_excel(
   path = file.path('paid_projections', 'pecota_2016.xls'),
@@ -52,6 +52,7 @@ pecota_p <- readxl::read_excel(
 )
 names(pecota_p) <- tolower(names(pecota_p))
 pecota_p$playername <- paste(pecota_p$firstname, pecota_p$lastname)
+pecota_p$pos <- ifelse(pecota_p$gs > 1, 'SP', 'RP')
 
 peek(pecota_h)
 peek(pecota_p)
@@ -60,12 +61,13 @@ peek(pecota_p)
 pick the relevant cols
 ```{r}
 
-id_cols <- c('bpid', 'born', 'mlbcode', 'fullname')
+id_cols <- c('bpid', 'born', 'mlbcode', 'playername', 'pos')
 pecota_h_slim <- pecota_h[, id_cols]
 pecota_p_slim <- pecota_p[, id_cols]
 
 pecota_slim <- rbind(pecota_h_slim, pecota_p_slim)
 names(pecota_slim)[names(pecota_slim) == 'mlbcode'] <- 'mlbid'
+
 ```
 
 Presumably we'll manually add in some names here:
