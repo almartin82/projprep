@@ -96,6 +96,21 @@ test_that('proj_prep object with fangraphs steamer', {
 })
 
 
+test_that('proj_prep object with zips ', {
+
+  ex <- get_zips(2016, TRUE)
+  pp <- proj_prep(ex)
+
+  expect_is(pp$h, 'data.frame')
+  expect_is(pp$p, 'data.frame')
+  expect_is(pp$replacement, 'list')
+  expect_is(pp$special_replacement, 'list')
+  expect_is(pp$h_final, 'data.frame')
+  expect_is(pp$p_final, 'data.frame')
+})
+
+
+
 test_that('proj_prep object with pecota', {
 
   ex <- get_pecota(pecota_file_loc, TRUE)

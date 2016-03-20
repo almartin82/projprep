@@ -57,6 +57,7 @@ zscore <- function(
       )
     #handle missing stats
     zscore_df$zscore <- ifelse(is.nan(zscore_df$zscore), 0, zscore_df$zscore)
+    zscore_df$zscore <- ifelse(is.na(zscore_df$zscore), 0, zscore_df$zscore)
 
     zscore_df$zscore <- zscore_df$zscore * stat_dir
     zscored[[paste(stat, 'zscore', sep = '_')]] <- zscore_df$zscore
@@ -129,8 +130,12 @@ zscore <- function(
           zscore = (stat - mean(top_n_stat)) / sd(top_n_stat)
         )
       #handle missing stats
-      zscore_df$zscore <- ifelse(is.nan(zscore_df$zscore), 0, zscore_df$zscore)
-
+      stat_zscored$zscore <- ifelse(
+        is.nan(stat_zscored$zscore), 0, stat_zscored$zscore
+      )
+      stat_zscored$zscore <- ifelse(
+        is.na(stat_zscored$zscore), 0, stat_zscored$zscore
+      )
       stat_zscored$zscore <- stat_zscored$zscore * stat_dir
       zscored_limit[[paste(stat, 'zscore', sep = '_')]] <- stat_zscored$zscore
     }

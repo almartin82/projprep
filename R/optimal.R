@@ -80,8 +80,7 @@ stat_extract_pos <- function(x, stat, hit_pitch, replacement_filter = 0) {
 
 stat_extract_player <- function(x, stat, hit_pitch, playerid, replacement_filter = 0) {
   x %>% magrittr::extract2(paste0(hit_pitch, '_final')) %>%
-    dplyr::filter(
-      final_zsum >= replacement_filter & mlbid == playerid) %>%
+    dplyr::filter(mlbid == playerid) %>%
     dplyr::select(one_of(stat))
 }
 
