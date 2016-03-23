@@ -44,10 +44,10 @@ saveRDS(guru,
   file = file.path('..', 'optimal-auction', 'proj_data', 'guru.rds')
 )
 saveRDS(razz_steamer, 
-  file = file.path('..', 'optimal-auction', 'proj_data', 'razz_steamer.rds')
+  file = file.path('..', 'optimal-auction', 'proj_data', 'rz-s.rds')
 )
 saveRDS(steamer, 
-  file = file.path('..', 'optimal-auction', 'proj_data', 'steamer.rds')
+  file = file.path('..', 'optimal-auction', 'proj_data', 'steam.rds')
 )
 saveRDS(dc, 
   file = file.path('..', 'optimal-auction', 'proj_data', 'dc.rds')
@@ -56,7 +56,7 @@ saveRDS(pod,
   file = file.path('..', 'optimal-auction', 'proj_data', 'pod.rds')
 )
 saveRDS(pecota, 
-  file = file.path('..', 'optimal-auction', 'proj_data', 'pecota.rds')
+  file = file.path('..', 'optimal-auction', 'proj_data', 'bp.rds')
 )
 
 ```
