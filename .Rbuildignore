@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^paid_projections/.+$
 ^CONDUCT\.md$
+^\.httr-oauth$
