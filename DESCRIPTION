@@ -7,7 +7,7 @@ Authors@R: person("Andrew", "Martin", role = c("aut","cre"), email = "almartin@g
 Description: Reads in fantasy baseball projection systems,
     extracts key stats, calculates replacement level,
     converts projections to standard scores, calculates auction prices.
-License: GPL-3
+License: MIT
 LazyData: TRUE
 Depends:
     downloader,
