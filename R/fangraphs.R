@@ -201,7 +201,7 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
 
 get_fangraphs <- function(year, proj_system, limit_unmatched = TRUE) {
   year %>% ensurer::ensure_that(
-      . == 2016 ~ 'fangraphs only reports current-year projections.'
+      . == 2017 ~ 'fangraphs only reports current-year projections.'
     )
 
   raw_h <- scrape_fangraphs('bat', proj_system)

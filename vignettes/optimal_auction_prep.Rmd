@@ -1,7 +1,7 @@
 ---
 title: "prep data for optimal auction app"
 author: "Andrew Martin"
-date: "March 17, 2016"
+date: "March 17, 2017"
 output: html_document
 ---
 
@@ -15,17 +15,17 @@ zips
 ```{r prep, cache=TRUE}
   
 #web
-cbs <- get_cbs(2016) %>% proj_prep()
-fp <- get_fantasy_pros(2016) %>% proj_prep()
-guru <- get_guru(2016) %>% proj_prep()
-razz_steamer <- get_razzball_steamer(2016) %>% proj_prep()
-steamer <- get_steamer(2016) %>% proj_prep()
-dc <- get_fangraphs_depth_charts(2016) %>% proj_prep()
+cbs <- get_cbs(2017) %>% proj_prep()
+fp <- get_fantasy_pros(2017) %>% proj_prep()
+guru <- get_guru(2017) %>% proj_prep()
+razz_steamer <- get_razzball_steamer(2017) %>% proj_prep()
+steamer <- get_steamer(2017) %>% proj_prep()
+dc <- get_fangraphs_depth_charts(2017) %>% proj_prep()
 
 #downloads
 pod <- get_pod(file.path('paid_projections', 'pod_projections.xlsx')) %>%
   proj_prep()
-pecota <- get_pecota(file.path('paid_projections', 'pecota_2016.xls')) %>%
+pecota <- get_pecota(file.path('paid_projections', 'pecota_2017.xls')) %>%
   proj_prep()
 
 ```

@@ -34,6 +34,8 @@ stock_defaults <- function() {
 
   pct_budget_h <- .7
 
+  c_fudge_factor <-
+
   h_hierarchy <- c('C', 'SS', '3B', '2B', 'OF', '1B', 'DH')
   p_hierarchy <- c('SP', 'RP')
 
@@ -50,7 +52,8 @@ stock_defaults <- function() {
     'h_roster_pct' = h_roster_pct,
     'h_hierarchy' = h_hierarchy,
     'p_hierarchy' = p_hierarchy,
-    'pct_budget_h' = pct_budget_h
+    'pct_budget_h' = pct_budget_h,
+    'c_fudge_factor' = c_fudge_factor
   )
   save(user_settings, file = file.path('data', 'user_settings.rda'))
 
