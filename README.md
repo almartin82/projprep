@@ -20,40 +20,72 @@ library(projprep)
 
 ## quickstart
 
-Here's how to read in, clean, and convert the fantasypros projections:
+Here's how to read in, clean, and convert the steamer projections, available on fangraphs:
 
 ```
-raw_fp <- get_fantasy_pros(2016)
-fp_pp <- proj_prep(raw_fp)
-head(fp_pp$h_final) %>% as.data.frame()
+raw_steamer <- get_steamer(2017)
+steamer_pp <- proj_prep(raw_steamer)
+head(steamer_pp$h_final) %>% as.data.frame()
 ```
 
 produces
 ```
-  mlbid          fullname firstname    lastname position priority_pos projection_name
-1     1        Mike Trout      Mike       Trout       OF           OF    fantasy_pros
-2     2      Bryce Harper     Bryce      Harper    OF,OF           OF    fantasy_pros
-3     3       Kris Bryant      Kris      Bryant    3B,OF           3B    fantasy_pros
-4     4  Andrew McCutchen    Andrew   McCutchen       OF           OF    fantasy_pros
-5     5  Paul Goldschmidt      Paul Goldschmidt       1B           1B    fantasy_pros
-6     6 Giancarlo Stanton Giancarlo     Stanton       OF           OF    fantasy_pros
-   ab   r rbi sb  tb   obp r_zscore rbi_zscore sb_zscore tb_zscore obp_zscore
-1 561 106 102 15 324 0.398     2.96       2.12     0.469      2.84      2.315
-2 520 100  94  7 299 0.419     2.45       1.63    -0.354      2.13      2.078
-3 562  91 105 12 285 0.358     1.69       2.30     0.161      1.73      1.345
-4 559  91  92 14 279 0.392     1.69       1.50     0.366      1.56      2.133
-5 544  97 100 15 295 0.410     2.20       2.00     0.469      2.02      2.304
-6 502  87  98  7 279 0.364     1.36       1.87    -0.354      1.56      0.534
-  unadjusted_zsum replacement_pos adjustment_zscore final_zsum value hit_pitch
-1           10.70              OF            -0.389      10.32  65.1         h
-2            7.94              OF            -0.389       7.55  47.9         h
-3            7.24              3B            -0.723       6.51  41.5         h
-4            7.26              OF            -0.389       6.87  43.7         h
-5            8.99              1B            -1.219       7.77  49.3         h
-6            4.97              OF            -0.389       4.58  29.5         h
+dropped 1394 hitters and 173 pitchers from the steamer projections
+data because ids could not be matched.  these are usually players
+with limited AB/IP.  see `fangraphs_unmatched` for names.
+
+building a projection_prep object!
+using the following hitting categories: r, rbi, sb, tb, obp
+using the following pitching categories: w, sv, k, era, whip
+TODO: to change any of these settings, run `set_defaults()`.
+
+filtering players with invalid positions for your league settings.
+filtered 0 hitters and 0 pitchers.
+finding h replacement-level players, assuming 12 teams.
+finding p replacement-level players, assuming 12 teams.
+re-calculating value over h replacement, by position.
+re-calculating value over p replacement, by position.
+calculating prices for h players
+there are 133 h players with total value greater than replacement level
+calculating prices for p players
+there are 109 p players with total value greater than replacement level
+
+   mlbid        fullname firstname   lastname position priority_pos
+1 454560      A.J. Ellis      A.J.      Ellis        C            C
+2 543362    A.J. Jimenez      A.J.    Jimenez        C            C
+3 150229 A.J. Pierzynski      A.J. Pierzynski        C            C
+4 572041    A.J. Pollock      A.J.    Pollock       OF           OF
+5 607223       A.J. Reed      A.J.       Reed       1B           1B
+6 623510     A.J. Simcox      A.J.     Simcox       SS           SS
+  projection_name  ab  r rbi sb  tb   obp   r_zscore rbi_zscore
+1         steamer  90 10  10  1  32 0.340 -4.6265175 -3.8746920
+2         steamer   1  0   0  0   0 0.274 -5.4241929 -4.5539330
+3         steamer   1  0   0  0   0 0.299 -5.4241929 -4.5539330
+4         steamer 519 74  59 23 229 0.341  0.4786053 -0.5464116
+5         steamer 127 16  17  0  52 0.318 -4.1479122 -3.3992234
+6         steamer   1  0   0  0   0 0.253 -5.4241929 -4.5539330
+  sb_zscore  tb_zscore obp_zscore unadjusted_zsum replacement_pos
+1 -0.955319 -5.4911269 -5.9997661      -20.947422               C
+2 -1.062125 -6.4291408 -7.3302088      -24.799600               C
+3 -1.062125 -6.4291408 -7.3291121      -24.798504               C
+4  1.394410  0.2835212  0.4220793        2.032204              OF
+5 -1.062125 -4.9048682 -5.5704410      -19.084570              1B
+6 -1.062125 -6.4291408 -7.3311301      -24.800522              SS
+  adjustment_zscore final_zsum  value hit_pitch
+1         9.4375119 -11.509910  -56.7         h
+2         9.4375119 -15.362089  -76.1         h
+3         9.4375119 -15.360992  -76.1         h
+4         0.7031254   2.735329   14.7         h
+5        -0.4498531 -19.534423  -97.0         h
+6         0.9561033 -23.844418 -118.6         h
 ```
 
-## projections supported
+## 2017 projections supported
+* [steamer](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer&team=0&lg=all&players=0)
+
+_probably others, but I'm short on time this year and haven't tested anything else_
+
+## 2016 projections supported
 
 * [cbs](http://www.cbssports.com/fantasy/baseball/stats/sortable/cbs/OF/season/standard/projections?&print_rows=9999)
 * [fantasy pros](http://www.fantasypros.com/mlb/projections/hitters.php) (composite)
