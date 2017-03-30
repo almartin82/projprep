@@ -1,7 +1,7 @@
 Package: projprep
 Type: Package
 Title: Preps Fantasy Baseball Projection System Files
-Version: 0.2.3
+Version: 0.3.0
 Date: 2016-02-04
 Authors@R: person("Andrew", "Martin", role = c("aut","cre"), email = "almartin@gmail.com")
 Description: Reads in fantasy baseball projection systems,
