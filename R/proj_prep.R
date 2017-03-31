@@ -4,6 +4,13 @@
 #'
 #' @param proj_list named ('h', 'p') list of data frames, ie output
 #' of get_steamer().
+#' @param verbose print status updates?
+#' default is TRUE
+#' @param drop_invalid_pos drop any players whose position cant be parsed.
+#' default is TRUE
+#' @param catcher_fudge catcher fudge factor
+#' @param no_catcher_adjustment use the position-adjusted z-score (FALSE)
+#' or use unadjusted z-score (TRUE)
 #' @param ... additional arguments
 #' @examples
 #'\dontrun{
@@ -22,7 +29,10 @@ proj_prep.default <- function(
   proj_list,
   verbose = TRUE,
   drop_invalid_pos = TRUE,
-  ...) {
+  catcher_fudge = 1,
+  no_catcher_adjustment = TRUE,
+  ...
+) {
 
   initial_message <- paste0(
     'building a projection_prep object!\n',
@@ -116,6 +126,23 @@ proj_prep.default <- function(
   #zscores with replacement position adjustments
   h_plus_replacement <- value_over_replacement(proj_list, 'h')
   p_plus_replacement <- value_over_replacement(proj_list, 'p')
+
+  #catcher fudge factor
+  h_plus_replacement <- h_plus_replacement %>%
+    dplyr::mutate(
+      adjustment_zscore = ifelse(
+        replacement_pos == 'C', adjustment_zscore * catcher_fudge, adjustment_zscore
+      )
+    )
+
+  #catcher over replacement or unadjusted?
+  if (no_catcher_adjustment) {
+    h_plus_replacement <- h_plus_replacement %>%
+      dplyr::mutate(
+        final_zsum = ifelse(replacement_pos == 'C', unadjusted_zsum, final_zsum)
+      )
+  }
+
 
   #express as prices
   proj_list[['h_final']] <- h_plus_replacement
