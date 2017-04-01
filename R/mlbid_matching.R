@@ -93,7 +93,7 @@ second_pass_mlbid <- function(name_vector, mlbid_vector) {
   }
 
   #bind together, return one matching id
-  after_matching_df <- dplyr::rbind_list(mlbid_matches)
+  after_matching_df <- dplyr::bind_rows(mlbid_matches)
   #look colwise, grab one id
   matched_id <- suppressWarnings(
     apply(after_matching_df, 1, function(x) min(x, na.rm = TRUE))

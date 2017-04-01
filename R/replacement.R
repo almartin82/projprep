@@ -134,7 +134,7 @@ find_special_replacement <- function(pp_list, hit_pitch) {
         grepl(j, x, fixed = TRUE)
       }) %>% unlist()
     }
-    pos_matches <- dplyr::rbind_list(pos_matches)
+    pos_matches <- dplyr::bind_rows(pos_matches)
     this_df$include_test <- rowSums(pos_matches) >= 1
 
     filter_df <- this_df %>%
