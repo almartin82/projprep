@@ -47,6 +47,8 @@ zscore <- function(
     if (stat_rate & hit_pitch == 'h') {
       for_zscoring$stat <- this_df$ab * for_zscoring$stat
     }
+    #this was mostly a bad idea because it penalizes SP with high IP.
+    #era and whip are currently set to FALSE.  rethink this?  see issue 47
     if (stat_rate & hit_pitch == 'p') {
       for_zscoring$stat <- this_df$ip * for_zscoring$stat
     }
@@ -118,6 +120,8 @@ zscore <- function(
         top_n$stat <- top_n$ab * top_n$stat
         for_zscoring$stat <- this_df$ab * for_zscoring$stat
       }
+
+      #see issue 47
       if (stat_rate & hit_pitch == 'p') {
         top_n$stat <- top_n$ip * top_n$stat
         for_zscoring$stat <- this_df$ip * for_zscoring$stat
