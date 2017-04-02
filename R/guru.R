@@ -8,7 +8,8 @@
 read_raw_guru <- function(year) {
 
   urls <- list(
-    '2016' = 'http://baseballguru.com/GURU_mForecast2016.xls'
+    '2016' = 'http://baseballguru.com/GURU_mForecast2016.xls',
+    '2017' = 'http://baseballguru.com/GURU_mForecast2017.xls'
   )
 
   url <- urls[[as.character(year)]]
