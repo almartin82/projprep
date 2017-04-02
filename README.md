@@ -82,21 +82,21 @@ there are 109 p players with total value greater than replacement level
 
 ## 2017 projections supported
 * [steamer](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer&team=0&lg=all&players=0)
-
+* [steamer600](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer600&team=0&lg=all&players=0)
+* [fangraphs depth charts (_fangraphsdc_)](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
+* [fantasy pros](http://www.fantasypros.com/mlb/projections/hitters.php) (composite)
+* [pecota](http://www.baseballprospectus.com/download.php?resource=PECOTA2017) if you have the excel file
 _probably others, but I'm short on time this year and haven't tested anything else_
 
-## 2016 projections supported
-
+## worked last year but currently broken 
 * [cbs](http://www.cbssports.com/fantasy/baseball/stats/sortable/cbs/OF/season/standard/projections?&print_rows=9999)
-* [fantasy pros](http://www.fantasypros.com/mlb/projections/hitters.php) (composite)
+
+## 2016 projections supported, not tested for 2017
+
 * [baseball guru](http://baseballguru.com/bbinside4.html)
 * [pod projections](http://www.projectingx.com/baseball-player-projections/)
 * [razzball steamer](http://razzball.com/steamer-hitter-projections/)
-* [steamer](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer&team=0&lg=all&players=0)
-* [steamer600](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=steamer600&team=0&lg=all&players=0)
-* [fangraphs depth charts (_fangraphsdc_)](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
 * [zips](http://www.fangraphs.com/projections.aspx?pos=all&stats=bat&type=fan&team=0&lg=all&players=0)
-* [pecota](http://www.baseballprospectus.com/fantasy/extras/splash_page.php)
 
 ## not yet supported
 
