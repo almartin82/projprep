@@ -11,7 +11,7 @@ scrape_fantasy_pros <- function(url) {
 
   projs <- h %>%
     html_nodes('#data') %>%
-    html_table()
+    html_table(fill = TRUE)
 
   projs[[1]]
 }
@@ -28,8 +28,8 @@ scrape_fantasy_pros <- function(url) {
 read_raw_fantasy_pros <- function(year) {
 
   urls <- list(
-    'yr_2016_h' = 'http://www.fantasypros.com/mlb/projections/hitters.php',
-    'yr_2016_p' = 'http://www.fantasypros.com/mlb/projections/pitchers.php'
+    'yr_2017_h' = 'http://www.fantasypros.com/mlb/projections/hitters.php',
+    'yr_2017_p' = 'http://www.fantasypros.com/mlb/projections/pitchers.php'
   )
 
   h <- scrape_fantasy_pros(urls[[paste('yr', year, 'h', sep = '_')]])
@@ -49,6 +49,9 @@ read_raw_fantasy_pros <- function(year) {
 #' @export
 
 clean_raw_fantasy_pros <- function(df, hit_pitch) {
+
+  #get rid of two weird NA columns
+  df <- df[, !is.na(names(df))]
 
   #clean player names
   player_names <- strsplit(df$Player, '(', fixed = TRUE)
