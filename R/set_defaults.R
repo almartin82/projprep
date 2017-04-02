@@ -13,7 +13,7 @@ stock_defaults <- function() {
   h_rate <- c(FALSE, FALSE, FALSE, FALSE, TRUE)
   p <- c('w', 'sv', 'k', 'era', 'whip')
   p_higher_better <- c(TRUE, TRUE, TRUE, FALSE, FALSE)
-  p_rate <- c(FALSE, FALSE, FALSE, TRUE, TRUE)
+  p_rate <- c(FALSE, FALSE, FALSE, FALSE, FALSE)
 
   league_size <- 12
   positions <- list(
