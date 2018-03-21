@@ -11,7 +11,7 @@
 
 scrape_fangraphs <- function(bat_pitch, proj_system) {
 
-  base_fangraphs <- 'http://www.fangraphs.com/projections.aspx?pos='
+  base_fangraphs <- 'https://www.fangraphs.com/projections.aspx?pos='
   if (bat_pitch == 'bat') {
     end_params <- '&players=0&sort=4,d'
     pos_choices <- c('c', '1b', '2b', 'ss', '3b', 'of')
@@ -26,12 +26,17 @@ scrape_fangraphs <- function(bat_pitch, proj_system) {
   url3 <- expand.grid(url2, c(1:30))
   urls <- paste0(url3$Var1, url3$Var2, end_params)
 
-  proj_list <- lapply(urls, function(x){
+  proj_list <- map(
+    urls,
+    function(.x) {
+      #get raw data (XML package doesn't like https)
+      raw_page <- RCurl::getURL(.x)
+      #then parse as before
       team_table <- XML::readHTMLTable(
-        x, as.data.frame = TRUE, stringsAsFactors = FALSE
+        raw_page, as.data.frame = TRUE, stringsAsFactors = FALSE
       )
       df <- team_table$ProjectionBoard1_dg1_ctl00
-      df$url <- x
+      df$url <- .x
 
       df
     }
@@ -201,7 +206,7 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
 
 get_fangraphs <- function(year, proj_system, limit_unmatched = TRUE) {
   year %>% ensurer::ensure_that(
-      . == 2017 ~ 'fangraphs only reports current-year projections.'
+      . == 2018 ~ 'fangraphs only reports current-year projections.'
     )
 
   raw_h <- scrape_fangraphs('bat', proj_system)
