@@ -28,8 +28,8 @@ scrape_fantasy_pros <- function(url) {
 read_raw_fantasy_pros <- function(year) {
 
   urls <- list(
-    'yr_2017_h' = 'http://www.fantasypros.com/mlb/projections/hitters.php',
-    'yr_2017_p' = 'http://www.fantasypros.com/mlb/projections/pitchers.php'
+    'yr_2018_h' = 'http://www.fantasypros.com/mlb/projections/hitters.php',
+    'yr_2018_p' = 'http://www.fantasypros.com/mlb/projections/pitchers.php'
   )
 
   h <- scrape_fantasy_pros(urls[[paste('yr', year, 'h', sep = '_')]])
