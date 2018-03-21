@@ -117,10 +117,12 @@ clean_raw_fangraphs <- function(df, hit_pitch) {
   #clean up df names
   names(df) <- tolower(names(df))
 
+  #drop all the empty string columns
+  empty_cols <- map_lgl(names(df), function(.x) .x=='')
+  df <- df[, !empty_cols]
+
   #drop the weird notes column
-  names(df)[2] <- 'fg_note'
-  df <- df %>%
-    dplyr::select(-fg_note)
+  if ('fg_note' %in% names(df)) df <- df %>% select(-fg_note)
 
   #clean up player names
   names(df)[names(df) == 'name'] <- 'fullname'
