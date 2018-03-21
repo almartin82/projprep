@@ -1,0 +1,135 @@
+---
+title: "auction_2017"
+author: "Andrew Martin"
+date: "March 30, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get data
+
+```{r}
+
+raw_steamer <- get_steamer(2017) 
+
+```
+
+## Clean and score data
+
+```{r}
+
+steamer_pp <- proj_prep(raw_steamer, catcher_fudge = 0.2)
+
+```
+
+Read in historical diaspora data
+
+```{r}
+hpk_hist_url <- 'https://docs.google.com/spreadsheets/d/13MAtR58A9aktkgpP5NdlI1u355HqyyCsbe1YVpzbQhM/'
+
+hpk_hist <- hpk_hist_url %>%
+  googlesheets::gs_url() %>%
+  googlesheets::gs_read(ws = 'auction_results') %>%
+  janitor::clean_names()
+
+head(hpk_hist)
+
+```
+
+What is the cost curve for our league?
+```{r}
+
+hpk_hist <- hpk_hist %>%
+  dplyr::group_by(year) %>%
+  dplyr::mutate(
+    rank = rank(-price, ties.method = 'first')
+  )
+
+```
+
+```{r}
+library(ggplot2)
+library(ggthemes)
+
+modern_hpk <- hpk_hist[hpk_hist$year >= 2014, ]
+
+ggplot(
+  data = modern_hpk,
+  aes(
+    x = rank,
+    y = price,
+    group = factor(year),
+    color = factor(year)
+  )
+) +
+geom_line(size = 2) +
+geom_point() +
+scale_x_log10() +
+theme_fivethirtyeight()
+```
+
+Determine average
+
+```{r}
+
+avg_price <- modern_hpk %>%
+  dplyr::group_by(rank) %>%
+  dplyr::summarize(
+    avg_price = mean(price)
+  ) %>%
+  dplyr::rename(
+    adp_rank = rank
+  )
+
+avg_price
+```
+
+## combine
+
+```{r}
+
+
+combined_price <- dplyr::bind_rows(
+  steamer_pp$h_final %>% left_join(raw_steamer$h[, c('mlbid', 'adp')]),
+  steamer_pp$p_final %>% left_join(raw_steamer$p[, c('mlbid', 'adp')])
+) %>%
+dplyr::arrange(value) %>%
+dplyr::mutate(
+  adp = as.numeric(adp),
+  adp_rank = rank(adp, ties.method = 'first') 
+)
+
+
+```
+
+
+```{r}
+
+combined_price <- combined_price %>% 
+  left_join(avg_price, by = 'adp_rank') %>%
+  dplyr::arrange(avg_price)
+
+```
+
+## put to google sheets
+```{r eval = FALSE}
+
+target_players <- combined_price %>%
+  dplyr::filter(adp_rank < 400)
+strat <- gs_title("auction strategy")
+
+strat %>%
+  gs_edit_cells(ws = "strat", input = target_players, trim = FALSE)
+```
+
+## Write
+
+```{r}
+library(readr)
+
+readr::write_csv(steamer_pp$h_final, path = 'steamer_h.csv')
+readr::write_csv(steamer_pp$p_final, path = 'steamer_p.csv')
+```

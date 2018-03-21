@@ -15,17 +15,17 @@ zips
 ```{r prep, cache=TRUE}
   
 #web
-cbs <- get_cbs(2017) %>% proj_prep()
-fp <- get_fantasy_pros(2017) %>% proj_prep()
+#cbs <- get_cbs(2017) %>% proj_prep()
+#fp <- get_fantasy_pros(2017) %>% proj_prep()
 guru <- get_guru(2017) %>% proj_prep()
-razz_steamer <- get_razzball_steamer(2017) %>% proj_prep()
+#razz_steamer <- get_razzball_steamer(2017) %>% proj_prep()
 steamer <- get_steamer(2017) %>% proj_prep()
 dc <- get_fangraphs_depth_charts(2017) %>% proj_prep()
 
 #downloads
-pod <- get_pod(file.path('paid_projections', 'pod_projections.xlsx')) %>%
-  proj_prep()
-pecota <- get_pecota(file.path('paid_projections', 'pecota_2017.xls')) %>%
+# pod <- get_pod(file.path('paid_projections', 'pod_projections.xlsx')) %>%
+#   proj_prep()
+pecota <- get_pecota(file.path('..','paid_projections', 'pecota_2017.xls')) %>%
   proj_prep()
 
 ```
