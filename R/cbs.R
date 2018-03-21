@@ -40,7 +40,8 @@ scrape_cbs <- function(url, pos) {
 read_raw_cbs <- function(year) {
 
   urls <- list(
-    '2017' = 'http://www.cbssports.com/fantasy/baseball/stats/sortable/points/%s/standard/projections/2017/ytd?&print_rows=9999'
+    '2017' = 'http://www.cbssports.com/fantasy/baseball/stats/sortable/points/%s/standard/projections/2017/ytd?&print_rows=9999',
+    '2018' = 'http://www.cbssports.com/fantasy/baseball/stats/sortable/points/%s/standard/projections/2018/ytd?&print_rows=9999'
   )
 
   url <- urls[[as.character(year)]]
