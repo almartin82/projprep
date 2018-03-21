@@ -3,6 +3,8 @@ title: "prep data for optimal auction app"
 author: "Andrew Martin"
 date: "March 17, 2017"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 Prep all the projections:
