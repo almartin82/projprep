@@ -45,7 +45,7 @@ Read in PECOTA and attach the relevant columns to the data frame
 ```{r}
 
 pecota_h <- readxl::read_excel(
-  path = file.path('..', 'paid_projections', 'pecota_2017.xls'),
+  path = file.path('..', 'paid_projections', 'pecota_2018.xls'),
   sheet = 2
 ) %>%
 janitor::clean_names() %>%
@@ -55,7 +55,7 @@ pecota_h$playername <- paste(pecota_h$firstname, pecota_h$lastname)
 pecota_h$pos <- trim_whitespace(pecota_h$pos)
 
 pecota_p <- readxl::read_excel(
-  path = file.path('..', 'paid_projections', 'pecota_2017.xls'),
+  path = file.path('..', 'paid_projections', 'pecota_2018.xls'),
   sheet = 3
 ) %>%
 janitor::clean_names() %>%
@@ -85,9 +85,9 @@ manually add in some names here, and do some cleanup:
 ```{r}
 
 #manual additions...
-id_map[id_map$playername == 'Hyun-soo Kim', 'mlbid'] <- 547957
-id_map[id_map$playername == 'Socrates Brito', 'mlbid'] <- 593647
-id_map[id_map$playername == 'Tyler Goeddel', 'mlbid'] <- 595963
+#id_map[id_map$playername == 'Hyun-soo Kim', 'mlbid'] <- 547957
+#id_map[id_map$playername == 'Socrates Brito', 'mlbid'] <- 593647
+#id_map[id_map$playername == 'Tyler Goeddel', 'mlbid'] <- 595963
 #id_map[id_map$playername == 'Aledmys Diaz', 'mlbid'] <- 649557
 
 id_map$pos <- toupper(id_map$pos)
